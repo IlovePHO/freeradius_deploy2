@@ -1,0 +1,3 @@
+perl ls_pl_convert_attributes {
+	filename = ${modconfdir}/perl/ls_convert_attributes.pl
+}

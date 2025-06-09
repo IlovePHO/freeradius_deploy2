@@ -1,0 +1,3 @@
+perl ls_pl_decrypt_attributes {
+	filename = ${modconfdir}/perl/ls_decrypt_attributes.pl
+}

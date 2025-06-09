@@ -1,0 +1,1577 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-28 07:39+0000\n"
+"PO-Revision-Date: 2022-10-28 18:00+0900\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2\n"
+
+#: Controller/AccessProvidersController.php:380
+msgid "Could not change parent"
+msgstr "親を変更できませんでした"
+
+#: Controller/AccessProvidersController.php:523
+#: Controller/AccessProvidersController.php:758
+#: Controller/AccountUsersController.php:149
+#: Controller/ActionsController.php:108
+#: Controller/ApProfilesController.orig.php:175
+#: Controller/ApProfilesController.orig.php:342
+#: Controller/ApProfilesController.orig.php:651
+#: Controller/ApProfilesController.orig.php:1532
+#: Controller/ApProfilesController.orig.php:1735
+#: Controller/ApProfilesController.php:180
+#: Controller/ApProfilesController.php:347
+#: Controller/ApProfilesController.php:732
+#: Controller/ApProfilesController.php:1928
+#: Controller/ApProfilesController.php:2299
+#: Controller/DevicesController.php:274 Controller/DevicesController.php:483
+#: Controller/DynamicDetailsController.php:681
+#: Controller/DynamicDetailsController.php:1498
+#: Controller/ExternalApiController.php:778
+#: Controller/ExternalApiController.php:956
+#: Controller/ExternalApiController.php:970
+#: Controller/FiltersController.php:263
+#: Controller/HomeServerPoolsController.php:154
+#: Controller/MeshesController.php:483 Controller/MeshesController.php:1155
+#: Controller/MeshesController.php:2311 Controller/NasController.php:296
+#: Controller/NasController.php:419 Controller/NasController.php:507
+#: Controller/NasController.php:513 Controller/NasController.php:602
+#: Controller/NasController.php:1050
+#: Controller/PermanentUserNotificationsController.php:115
+#: Controller/PermanentUsersController.php:333
+#: Controller/PermanentUsersController.php:351
+#: Controller/PermanentUsersController.php:632
+#: Controller/ProfileComponentsController.php:145
+#: Controller/ProfileComponentsController.php:162
+#: Controller/ProfilesController.php:260
+#: Controller/RadpostauthsController.php:245
+#: Controller/RealmsController.php:457
+#: Controller/RegistrationRequestsController.php:664
+#: Controller/SsidsController.php:257 Controller/TagsController.php:266
+#: Controller/TopUpsController.php:260 Controller/VouchersController.php:731
+msgid "Could not create item"
+msgstr "アイテムを作成できませんでした"
+
+#: Controller/AccessProvidersController.php:865
+#: Controller/AccountUsersController.php:183
+#: Controller/ActionsController.php:142 Controller/AlertsController.php:169
+#: Controller/AlertsController.php:218 Controller/AliveController.php:148
+#: Controller/ApActionsController.php:182
+#: Controller/ApProfilesController.orig.php:231
+#: Controller/ApProfilesController.php:236
+#: Controller/DataCollectorsController.php:359
+#: Controller/DevicesController.php:329 Controller/DevicesController.php:522
+#: Controller/DynamicClientStatesController.php:143
+#: Controller/DynamicClientsController.php:363
+#: Controller/DynamicDetailTranslationsController.php:663
+#: Controller/FiltersController.php:334
+#: Controller/FirmwareKeysController.php:224
+#: Controller/HardwareOwnersController.php:324
+#: Controller/HardwaresController.php:338
+#: Controller/HomeServerPoolsController.php:336
+#: Controller/IpPoolsController.php:244 Controller/MeshesController.php:346
+#: Controller/NaStatesController.php:172 Controller/NasController.php:1296
+#: Controller/NodeActionsController.php:225
+#: Controller/OpenvpnServersController.php:363
+#: Controller/PermanentUserNotificationsController.php:147
+#: Controller/PermanentUsersController.php:402
+#: Controller/PermanentUsersController.php:671
+#: Controller/PredefinedCommandsController.php:267
+#: Controller/ProfileComponentsController.php:312
+#: Controller/ProfileComponentsController.php:525
+#: Controller/ProfilesController.php:401 Controller/RadacctsController.php:374
+#: Controller/RadpostauthsController.php:279
+#: Controller/RealmsController.php:574
+#: Controller/RegistrationRequestsController.php:518
+#: Controller/SchedulesController.php:255
+#: Controller/SchedulesController.php:444 Controller/SkelController.php:224
+#: Controller/SoftEtherLocalBridgesController.php:130
+#: Controller/SoftEtherNetworkBridgesController.php:164
+#: Controller/SoftEtherNetworkBridgesController.php:281
+#: Controller/SoftEtherUsersController.php:152
+#: Controller/SoftEtherVirtualHubsController.php:152
+#: Controller/SoftEtherVpnInstancesController.php:151
+#: Controller/SoftEtherWireguardController.php:174
+#: Controller/SsidsController.php:329 Controller/TagsController.php:338
+#: Controller/TopUpsController.php:330
+#: Controller/TrafficClassesController.php:227
+#: Controller/VouchersController.php:694 Controller/VouchersController.php:770
+#: Controller/WireguardServersController.php:307
+#: Controller/Component/LifeSeedComponent.php:267
+#: Controller/Component/NotesComponent.php:163
+msgid "Could not delete some items"
+msgstr "一部のアイテムを削除できませんでした"
+
+#: Controller/AccountUsersController.php:59
+#: Controller/DashboardController.php:73 Controller/DashboardController.php:144
+msgid "Confirm this name"
+msgstr "この名前を確認してください"
+
+#: Controller/AccountUsersController.php:59
+#: Controller/DashboardController.php:73 Controller/DashboardController.php:144
+msgid "Type the password again"
+msgstr "パスワードをもう一度入力します"
+
+#: Controller/AccountUsersController.php:61
+#: Controller/DashboardController.php:75 Controller/DashboardController.php:146
+msgid "Authentication failed"
+msgstr "認証に失敗しました"
+
+#: Controller/AcosRightsController.php:262
+#: Controller/TreeTagsController.php:284
+msgid "Not allowed to change root node"
+msgstr "ルートノードの変更は許可されていません"
+
+#: Controller/ActionsController.php:169 Controller/ActionsController.php:219
+#: Controller/ApProfilesController.orig.php:1930
+#: Controller/ApProfilesController.orig.php:2030
+#: Controller/ApProfilesController.orig.php:2055
+#: Controller/ApProfilesController.orig.php:2070
+#: Controller/ApProfilesController.orig.php:2100
+#: Controller/ApProfilesController.orig.php:2115
+#: Controller/ApProfilesController.orig.php:2146
+#: Controller/ApProfilesController.orig.php:2182
+#: Controller/ApProfilesController.orig.php:2236
+#: Controller/ApProfilesController.orig.php:2252
+#: Controller/IpPoolsController.php:443 Controller/LimitsController.php:125
+#: Controller/LimitsController.php:183
+#: Controller/PermanentUserNotificationsController.php:209
+#: Controller/PermanentUserNotificationsController.php:267
+#: Controller/PermanentUsersController.php:871
+#: Controller/Component/GridButtonsComponent.php:373
+#: Controller/Component/GridButtonsComponent.php:873
+#: Controller/Component/GridButtonsComponent.php:883
+msgid "Action"
+msgstr "操作"
+
+#: Controller/ActionsController.php:170 Controller/ActionsController.php:191
+#: Controller/AliveController.php:181 Controller/AliveController.php:218
+#: Controller/ApProfilesController.orig.php:1936
+#: Controller/ApProfilesController.orig.php:1973
+#: Controller/ApProfilesController.orig.php:2056
+#: Controller/ApProfilesController.orig.php:2071
+#: Controller/ApProfilesController.orig.php:2101
+#: Controller/ApProfilesController.orig.php:2116
+#: Controller/ApProfilesController.orig.php:2153
+#: Controller/ApProfilesController.orig.php:2189
+#: Controller/ApProfilesController.orig.php:2237
+#: Controller/ApProfilesController.orig.php:2253
+#: Controller/DynamicClientStatesController.php:176
+#: Controller/DynamicClientStatesController.php:206
+#: Controller/IpPoolsController.php:449 Controller/LimitsController.php:126
+#: Controller/LimitsController.php:146 Controller/NodeReportsController.php:280
+#: Controller/NotificationListsController.php:221
+#: Controller/NotificationListsController.php:251
+#: Controller/PermanentUserNotificationsController.php:210
+#: Controller/PermanentUserNotificationsController.php:230
+#: Controller/PermanentUsersController.php:872
+#: Controller/RadacctsController.php:484 Controller/RadacctsController.php:558
+#: Controller/RadpostauthsController.php:316
+#: Controller/RadpostauthsController.php:360
+#: Controller/Component/GridButtonsComponent.php:63
+#: Controller/Component/GridButtonsComponent.php:71
+msgid "Reload"
+msgstr "リロード"
+
+#: Controller/ActionsController.php:171 Controller/ActionsController.php:202
+#: Controller/ApProfilesController.orig.php:1948
+#: Controller/ApProfilesController.orig.php:1995
+#: Controller/ApProfilesController.orig.php:2057
+#: Controller/ApProfilesController.orig.php:2072
+#: Controller/ApProfilesController.orig.php:2102
+#: Controller/ApProfilesController.orig.php:2117
+#: Controller/ApProfilesController.orig.php:2165
+#: Controller/ApProfilesController.orig.php:2201
+#: Controller/ApProfilesController.orig.php:2238
+#: Controller/ApProfilesController.orig.php:2254
+#: Controller/IpPoolsController.php:456 Controller/LimitsController.php:127
+#: Controller/LimitsController.php:156
+#: Controller/PermanentUserNotificationsController.php:211
+#: Controller/PermanentUserNotificationsController.php:240
+#: Controller/RegistrationRequestsController.php:553
+#: Controller/Component/GridButtonsComponent.php:88
+#: Controller/Component/GridButtonsComponent.php:975
+msgid "Add"
+msgstr "追加"
+
+#: Controller/ActionsController.php:172 Controller/ActionsController.php:215
+#: Controller/AliveController.php:187 Controller/AliveController.php:229
+#: Controller/ApProfilesController.orig.php:1949
+#: Controller/ApProfilesController.orig.php:2005
+#: Controller/ApProfilesController.orig.php:2058
+#: Controller/ApProfilesController.orig.php:2073
+#: Controller/ApProfilesController.orig.php:2103
+#: Controller/ApProfilesController.orig.php:2118
+#: Controller/ApProfilesController.orig.php:2166
+#: Controller/ApProfilesController.orig.php:2202
+#: Controller/ApProfilesController.orig.php:2239
+#: Controller/ApProfilesController.orig.php:2255
+#: Controller/DynamicClientStatesController.php:177
+#: Controller/DynamicClientStatesController.php:217
+#: Controller/IpPoolsController.php:463 Controller/LimitsController.php:128
+#: Controller/LimitsController.php:167 Controller/NodeReportsController.php:293
+#: Controller/PermanentUserNotificationsController.php:212
+#: Controller/PermanentUserNotificationsController.php:251
+#: Controller/RegistrationRequestsController.php:579
+#: Controller/Component/GridButtonsComponent.php:106
+#: Controller/Component/GridButtonsComponent.php:992
+msgid "Delete"
+msgstr "削除"
+
+#: Controller/ApActionsController.php:122
+#: Controller/ApActionsController.php:149
+#: Controller/ApProfilesController.orig.php:611
+#: Controller/ApProfilesController.orig.php:753
+#: Controller/ApProfilesController.php:667
+#: Controller/ApProfilesController.php:840
+#: Controller/ApProfilesController.php:1327 Controller/ApsController.php:198
+#: Controller/ApsController.php:213 Controller/CloudsController.php:962
+#: Controller/CloudsController.php:1005
+#: Controller/CoaRequestsController.php:297
+#: Controller/DataCollectorsController.php:327
+#: Controller/DevicesController.php:469
+#: Controller/DynamicDetailTranslationsController.php:526
+#: Controller/DynamicDetailTranslationsController.php:583
+#: Controller/DynamicDetailTranslationsController.php:915
+#: Controller/DynamicDetailTranslationsController.php:943
+#: Controller/DynamicDetailsController.php:728
+#: Controller/DynamicDetailsController.php:812
+#: Controller/DynamicDetailsController.php:916
+#: Controller/DynamicDetailsController.php:1542
+#: Controller/FirmwareKeysController.php:169
+#: Controller/HardwareOwnersController.php:200
+#: Controller/HardwareOwnersController.php:232
+#: Controller/HardwaresController.php:283
+#: Controller/HomeServerPoolsController.php:229
+#: Controller/HomeServerPoolsController.php:242
+#: Controller/MeshesController.php:291 Controller/MeshesController.php:798
+#: Controller/MeshesController.php:860 Controller/MeshesController.php:1091
+#: Controller/MeshesController.php:1370 Controller/MeshesController.php:2651
+#: Controller/NasController.php:885 Controller/NodeActionsController.php:148
+#: Controller/NodeActionsController.php:192 Controller/NodesController.php:171
+#: Controller/NodesController.php:189 Controller/NodesController.php:229
+#: Controller/OpenvpnServersController.php:308
+#: Controller/PermanentUsersController.php:546
+#: Controller/PermanentUsersController.php:602
+#: Controller/PredefinedCommandsController.php:212
+#: Controller/ProfileComponentsController.php:470
+#: Controller/ProfilesController.php:493 Controller/ProfilesController.php:633
+#: Controller/RegistrationRequestsController.php:463
+#: Controller/SchedulesController.php:197
+#: Controller/SchedulesController.php:304
+#: Controller/SchedulesController.php:342
+#: Controller/SchedulesController.php:405 Controller/SkelController.php:169
+#: Controller/SoftEtherL2tpController.php:69
+#: Controller/SoftEtherNetworkBridgesController.php:132
+#: Controller/SoftEtherSecureNatsController.php:67
+#: Controller/SoftEtherUsersController.php:120
+#: Controller/SoftEtherVirtualHubsController.php:120
+#: Controller/SoftEtherVpnInstancesController.php:119
+#: Controller/SoftEtherWireguardController.php:70
+#: Controller/TrafficClassesController.php:172
+#: Controller/TreeTagsController.php:260 Controller/TreeTagsController.php:296
+#: Controller/UnknownNodesController.php:58
+#: Controller/UnknownNodesController.php:87
+#: Controller/VouchersController.php:605 Controller/WifiChartsController.php:91
+#: Controller/WireguardServersController.php:252
+#: Controller/Component/LifeSeedComponent.php:141
+#: Controller/Component/UnknownsComponent.php:105
+msgid "Could not update item"
+msgstr "アイテムを更新できませんでした"
+
+#: Controller/ApProfilesController.orig.php:1838
+#: Controller/ApProfilesController.php:2493 Controller/ApsController.php:660
+#: Controller/PermanentUserNotificationsController.php:297
+#: Model/Table/UsersTable.php:57 Model/Table/UsersTable.php:63
+#: Model/Table/UsersTable.php:83
+msgid "orphaned"
+msgstr "孤立している"
+
+#: Controller/ApProfilesController.orig.php:1939
+#: Controller/ApProfilesController.orig.php:1976
+#: Controller/ApProfilesController.orig.php:2156
+#: Controller/ApProfilesController.orig.php:2192
+#: Controller/NodeReportsController.php:283
+#: Controller/NotificationListsController.php:225
+#: Controller/NotificationListsController.php:255
+#: Controller/RadacctsController.php:487 Controller/RadacctsController.php:561
+msgid "Reload every"
+msgstr "リロード間隔"
+
+#: Controller/ApProfilesController.orig.php:1940
+#: Controller/ApProfilesController.orig.php:1977
+#: Controller/ApProfilesController.orig.php:2157
+#: Controller/ApProfilesController.orig.php:2193
+#: Controller/NodeReportsController.php:284
+#: Controller/NotificationListsController.php:226
+#: Controller/NotificationListsController.php:256
+#: Controller/RadacctsController.php:489 Controller/RadacctsController.php:562
+#: Controller/Component/GridButtonsComponent.php:76
+msgid "30 seconds"
+msgstr "30秒"
+
+#: Controller/ApProfilesController.orig.php:1941
+#: Controller/ApProfilesController.orig.php:1978
+#: Controller/ApProfilesController.orig.php:2158
+#: Controller/ApProfilesController.orig.php:2194
+#: Controller/NodeReportsController.php:285
+#: Controller/NotificationListsController.php:227
+#: Controller/NotificationListsController.php:257
+#: Controller/RadacctsController.php:490 Controller/RadacctsController.php:563
+#: Controller/Component/GridButtonsComponent.php:77
+msgid "1 minute"
+msgstr "1分"
+
+#: Controller/ApProfilesController.orig.php:1942
+#: Controller/ApProfilesController.orig.php:1979
+#: Controller/ApProfilesController.orig.php:2159
+#: Controller/ApProfilesController.orig.php:2195
+#: Controller/NodeReportsController.php:286
+#: Controller/NotificationListsController.php:228
+#: Controller/NotificationListsController.php:258
+#: Controller/RadacctsController.php:491 Controller/RadacctsController.php:564
+#: Controller/Component/GridButtonsComponent.php:78
+msgid "5 minutes"
+msgstr "5分"
+
+#: Controller/ApProfilesController.orig.php:1943
+#: Controller/ApProfilesController.orig.php:1980
+#: Controller/ApProfilesController.orig.php:2160
+#: Controller/ApProfilesController.orig.php:2196
+#: Controller/NodeReportsController.php:287
+#: Controller/NotificationListsController.php:229
+#: Controller/NotificationListsController.php:259
+#: Controller/RadacctsController.php:492 Controller/RadacctsController.php:565
+#: Controller/Component/GridButtonsComponent.php:79
+msgid "Stop auto reload"
+msgstr "自動リロードを停止"
+
+#: Controller/ApProfilesController.orig.php:1950
+#: Controller/ApProfilesController.orig.php:2016
+#: Controller/ApProfilesController.orig.php:2059
+#: Controller/ApProfilesController.orig.php:2074
+#: Controller/ApProfilesController.orig.php:2104
+#: Controller/ApProfilesController.orig.php:2119
+#: Controller/ApProfilesController.orig.php:2167
+#: Controller/ApProfilesController.orig.php:2203
+#: Controller/ApProfilesController.orig.php:2240
+#: Controller/ApProfilesController.orig.php:2256
+#: Controller/IpPoolsController.php:470 Controller/LimitsController.php:129
+#: Controller/LimitsController.php:179
+#: Controller/PermanentUserNotificationsController.php:213
+#: Controller/PermanentUserNotificationsController.php:263
+#: Controller/Component/GridButtonsComponent.php:97
+msgid "Edit"
+msgstr "編集"
+
+#: Controller/ApProfilesController.orig.php:1953
+#: Controller/ApProfilesController.orig.php:2031
+#: Controller/IpPoolsController.php:473
+#: Controller/Component/GridButtonsComponent.php:1331
+#: Controller/Component/GridButtonsComponent.php:1417
+#: Controller/Component/GridButtonsComponent.php:1456
+#: Controller/Component/GridButtonsComponent.php:1497
+msgid "Document"
+msgstr "書類"
+
+#: Controller/ApProfilesController.orig.php:1954
+#: Controller/Component/GridButtonsComponent.php:115
+msgid "Add notes"
+msgstr "ノートの追加"
+
+#: Controller/ApProfilesController.orig.php:2026
+msgid "Add Notes"
+msgstr "ノートの追加"
+
+#: Controller/ApProfilesController.orig.php:2168
+#: Controller/ApProfilesController.orig.php:2169
+#: Controller/ApProfilesController.orig.php:2204
+#: Controller/ApProfilesController.orig.php:2205
+#: Controller/NotificationListsController.php:234
+#: Controller/NotificationListsController.php:276
+#: Controller/Component/GridButtonsComponent.php:294
+#: View/Helper/PaginatorHelper.php:1273
+msgid "View"
+msgstr "ビュー"
+
+#: Controller/ApProfilesController.orig.php:2170
+#: Controller/ApProfilesController.orig.php:2206
+#: Controller/Component/GridButtonsComponent.php:303
+msgid "Execute"
+msgstr "実行"
+
+#: Controller/ApProfilesController.orig.php:2171
+#: Controller/ApProfilesController.orig.php:2207
+#: Controller/Component/GridButtonsComponent.php:321
+msgid "Restart"
+msgstr "再起動"
+
+#: Controller/ApProfilesController.php:1902
+#: Controller/ApProfilesController.php:1914
+#: Controller/MeshesController.php:2258 Controller/MeshesController.php:2270
+#: Controller/MeshesController.php:2284 Controller/MeshesController.php:2299
+#: Controller/SoftEtherLocalBridgesController.php:98
+#: Controller/SoftEtherNetworkBridgesController.php:100
+#: Controller/SoftEtherNetworkBridgesController.php:243
+#: Controller/SoftEtherUsersController.php:96
+#: Controller/SoftEtherVirtualHubsController.php:96
+#: Controller/SoftEtherVpnInstancesController.php:95
+#: Controller/SoftEtherWireguardController.php:142
+msgid "Could not add item"
+msgstr "アイテムを追加できませんでした"
+
+#: Controller/CountriesController.php:62
+msgid "Problem adding country"
+msgstr "国の追加に問題があります"
+
+#: Controller/DashboardController.php:82
+msgid "Required"
+msgstr "必須"
+
+#: Controller/DashboardController.php:84
+msgid "HTTP POST Required -> Authentication failed"
+msgstr "HTTP POSTが必要->認証に失敗しました"
+
+#: Controller/DashboardController.php:724
+#: Controller/DashboardController.php:1596
+msgid "Admin"
+msgstr "管理者"
+
+#: Controller/DashboardController.php:733
+#: Controller/DashboardController.php:1523
+msgid "Admins"
+msgstr "管理者"
+
+#: Controller/DashboardController.php:742
+#: Controller/DashboardController.php:1536
+msgid "Realms (Groups)"
+msgstr "レルム（グループ）"
+
+#: Controller/DashboardController.php:751
+#: Controller/DashboardController.php:1548
+msgid "Institution"
+msgstr "機関"
+
+#: Controller/DashboardController.php:760
+#: Controller/DashboardController.php:1561
+msgid "API key"
+msgstr "APIキー"
+
+#: Controller/DashboardController.php:768
+#: Controller/DashboardController.php:1572
+msgid "HMAC key"
+msgstr "HMACキー"
+
+#: Controller/DashboardController.php:776
+#: Controller/DashboardController.php:1583
+msgid "STA config"
+msgstr "接続設定"
+
+#: Controller/DashboardController.php:790
+#: Controller/DashboardController.php:1256
+#: Controller/DashboardController.php:1422
+#: Controller/DashboardController.php:1687
+#: Controller/Component/GridButtonsComponent.php:242
+msgid "Users"
+msgstr "ユーザー"
+
+#: Controller/DashboardController.php:799
+#: Controller/DashboardController.php:1614
+msgid "Permanent Users"
+msgstr "常設ユーザー"
+
+#: Controller/DashboardController.php:808
+#: Controller/DashboardController.php:1628
+msgid "Vouchers"
+msgstr "バウチャー"
+
+#: Controller/DashboardController.php:817
+#: Controller/DashboardController.php:1641
+msgid "Activity Monitor"
+msgstr "アクティビティモニター"
+
+#: Controller/DashboardController.php:843
+#: Controller/DashboardController.php:1676
+msgid "STA infos"
+msgstr "端末情報"
+
+#: Controller/DashboardController.php:857
+#: Controller/DashboardController.php:874
+#: Controller/DashboardController.php:1714
+#: Controller/DashboardController.php:1727
+msgid "Profiles"
+msgstr "プロファイル"
+
+#: Controller/DashboardController.php:888
+#: Controller/DashboardController.php:1817
+msgid "RADIUS"
+msgstr "RADIUS"
+
+#: Controller/DashboardController.php:896
+#: Controller/DashboardController.php:1743
+msgid "RADIUS Clients"
+msgstr "RADIUSクライアント"
+
+#: Controller/DashboardController.php:906
+#: Controller/DashboardController.php:1756
+msgid "NAS Devices"
+msgstr "NASデバイス"
+
+#: Controller/DashboardController.php:912
+#: Controller/DashboardController.php:1766
+msgid "NAS Device Tags"
+msgstr "NASデバイス・タグ"
+
+#: Controller/DashboardController.php:918
+#: Controller/DashboardController.php:1777
+msgid "SSIDs"
+msgstr "SSID"
+
+#: Controller/DashboardController.php:924
+#: Controller/DashboardController.php:1787
+#: Controller/Component/GridButtonsComponent.php:1617
+#: Controller/Component/GridButtonsComponent.php:1643
+msgid "Proxies"
+msgstr "プロキシ"
+
+#: Controller/DashboardController.php:931
+#: Controller/DashboardController.php:1797
+msgid "Proxy decision conditions"
+msgstr "プロキシ判定条件"
+
+#: Controller/DashboardController.php:938
+#: Controller/DashboardController.php:1807
+msgid "Attribute converts"
+msgstr "アトリビュート変換"
+
+#: Controller/DashboardController.php:961
+#: Controller/DashboardController.php:1845
+msgid "MESHdesk"
+msgstr "MESHdesk"
+
+#: Controller/DashboardController.php:970
+#: Controller/DashboardController.php:1858
+msgid "APdesk"
+msgstr "APdesk"
+
+#: Controller/DashboardController.php:981
+#: Controller/DashboardController.php:1871
+msgid "DNSdesk"
+msgstr "DNSdesk"
+
+#: Controller/DashboardController.php:1025
+#: Controller/DashboardController.php:1033
+#: Controller/DashboardController.php:1918
+#: Controller/DashboardController.php:1932
+msgid "Login Pages"
+msgstr "ログインページ"
+
+#: Controller/DashboardController.php:1047
+#: Controller/DashboardController.php:2016
+msgid "Other"
+msgstr "その他"
+
+#: Controller/DashboardController.php:1069
+msgid "Wireguard Servers"
+msgstr "ワイヤーガードサーバー"
+
+#: Controller/DashboardController.php:1075
+msgid "OpenVPN Servers"
+msgstr "OpenVPNサーバー"
+
+#: Controller/DashboardController.php:1093
+#: Controller/DashboardController.php:1296
+#: Controller/DashboardController.php:1462
+#: Controller/DashboardController.php:1976
+msgid "Clouds"
+msgstr "クラウド"
+
+#: Controller/DashboardController.php:1099
+msgid "Rights Manager"
+msgstr "権利管理"
+
+#: Controller/DashboardController.php:1117
+msgid "Settings"
+msgstr "設定"
+
+#: Controller/DashboardController.php:1130
+#: Controller/DashboardController.php:1989
+msgid "Schedules"
+msgstr "スケジュール"
+
+#: Controller/DashboardController.php:1137
+#: Controller/DashboardController.php:2003
+msgid "Hardwares"
+msgstr "ハードウェア"
+
+#: Controller/DashboardController.php:1154
+#: Controller/DashboardController.php:2087
+msgid "VPN"
+msgstr "VPN"
+
+#: Controller/DashboardController.php:1163
+#: Controller/DashboardController.php:2032
+msgid "VPN instances"
+msgstr "VPNインスタンス"
+
+#: Controller/DashboardController.php:1172
+#: Controller/DashboardController.php:2044
+msgid "Virtual Hubs"
+msgstr "仮想Hub"
+
+#: Controller/DashboardController.php:1177
+#: Controller/DashboardController.php:2053
+msgid "Local Bridges"
+msgstr "ローカルブリッジ"
+
+#: Controller/DashboardController.php:1182
+#: Controller/DashboardController.php:2062
+msgid "L2TP/IPsec"
+msgstr "L2TP/IPsec"
+
+#: Controller/DashboardController.php:1187
+#: Controller/DashboardController.php:2070
+msgid "WireGuard"
+msgstr "WireGuard"
+
+#: Controller/DashboardController.php:1192
+#: Controller/DashboardController.php:2078
+msgid "Network Bridges"
+msgstr "ネットワークブリッジ"
+
+#: Controller/DashboardController.php:1271
+#: Controller/DashboardController.php:1436
+msgid "Welcome Message"
+msgstr "ウェルカムメッセージ"
+
+#: Controller/DashboardController.php:1319
+#: Controller/DashboardController.php:1485
+msgid "Access Points"
+msgstr "アクセスポイント"
+
+#: Controller/DashboardController.php:1328
+#: Controller/DashboardController.php:1494
+msgid "Utilities"
+msgstr "ユーティリティ"
+
+#: Controller/DashboardController.php:1339
+#: Controller/DashboardController.php:1506
+msgid "Overview"
+msgstr "概要"
+
+#: Controller/DevicesController.php:153 Controller/DevicesController.php:160
+#: Controller/PermanentUsersController.php:182
+#: Controller/PermanentUsersController.php:189
+#: Controller/VouchersController.php:300 Controller/VouchersController.php:338
+#: Controller/VouchersController.php:345
+msgid "Never"
+msgstr "一度もない"
+
+#: Controller/DevicesController.php:443
+#: Controller/PermanentUsersController.php:517
+#: Controller/VouchersController.php:570
+msgid "profile or profile_id not found in DB or not supplied"
+msgstr "プロファイルまたはprofile_idがDBに見つからないか、提供されていません"
+
+#: Controller/DevicesController.php:504
+#: Controller/PermanentUsersController.php:653
+#: Controller/ProfileComponentsController.php:190
+#: Controller/ProfileComponentsController.php:212
+#: Controller/ProfileComponentsController.php:239
+#: Controller/ProfileComponentsController.php:265
+#: Controller/VouchersController.php:752
+msgid "Could not edit item"
+msgstr "アイテムを編集できませんでした"
+
+#: Controller/DynamicClientsController.php:506
+#: Controller/DynamicDetailsController.php:1106
+#: Controller/DynamicDetailsController.php:1170
+#: Controller/HardwaresController.php:401 Controller/NasController.php:951
+#: Controller/RealmsController.php:626 Controller/WizardsController.php:681
+msgid "Problem uploading photo"
+msgstr "写真のアップロードで問題が発生しました"
+
+#: Controller/DynamicDetailTranslationsController.php:508
+#: Controller/DynamicDetailTranslationsController.php:560
+msgid "Could Not Create Item"
+msgstr "アイテムを作成できませんでした"
+
+#: Controller/DynamicDetailsController.php:1817
+msgid "ManageTranslations"
+msgstr "翻訳管理"
+
+#: Controller/DynamicDetailsController.php:1867
+#: Controller/IpPoolsController.php:479 Controller/RadacctsController.php:533
+#: Controller/RadacctsController.php:601
+#: Controller/RadpostauthsController.php:338
+#: Controller/RadpostauthsController.php:381
+#: Controller/Component/GridButtonsComponent.php:124
+msgid "Export CSV"
+msgstr "CSVエクスポート"
+
+#: Controller/ExternalApiController.php:454
+msgid "Update not found"
+msgstr "アップデートが見つかりません"
+
+#: Controller/ExternalApiController.php:610
+msgid "ApiKey invalid"
+msgstr "ApiKeyが無効"
+
+#: Controller/ExternalApiController.php:619
+msgid "ApiKey in wrong format"
+msgstr "ApiKey の形式が正しくありません"
+
+#: Controller/ExternalApiController.php:629
+msgid "ApiKey missing"
+msgstr "ApiKeyがありません"
+
+#: Controller/ExternalApiController.php:659
+msgid "No user for api_key"
+msgstr "api_keyに対応するユーザがありません"
+
+#: Controller/ExternalApiController.php:666
+#: Controller/Component/TokenAuthComponent.php:67
+msgid "Account disabled"
+msgstr "アカウント無効"
+
+#: Controller/ExternalApiController.php:776
+#: Controller/ExternalApiController.php:954
+#: Controller/ExternalApiController.php:968
+msgid "The username you provided is already taken. Please provide another one"
+msgstr ""
+"入力されたユーザーネームはすでに使用されています。別のユーザー名を入力してく"
+"ださい"
+
+#: Controller/FreeRadiusController.php:36
+msgid "Accepted"
+msgstr "承認済み"
+
+#: Controller/FreeRadiusController.php:39
+msgid "Rejected"
+msgstr "拒否されました"
+
+#: Controller/FreeRadiusController.php:44
+#: Controller/FreeRadiusController.php:94
+msgid "Responses"
+msgstr "応答"
+
+#: Controller/FreeRadiusController.php:48
+msgid "Challenges"
+msgstr "課題"
+
+#: Controller/FreeRadiusController.php:52
+#: Controller/FreeRadiusController.php:97
+msgid "Duplicates"
+msgstr "複製"
+
+#: Controller/FreeRadiusController.php:56
+#: Controller/FreeRadiusController.php:101
+msgid "Invalid"
+msgstr "無効"
+
+#: Controller/FreeRadiusController.php:60
+#: Controller/FreeRadiusController.php:105
+msgid "Malformed"
+msgstr "奇形"
+
+#: Controller/FreeRadiusController.php:64
+#: Controller/FreeRadiusController.php:109
+msgid "Bad Signature"
+msgstr "不正な署名"
+
+#: Controller/FreeRadiusController.php:68
+#: Controller/FreeRadiusController.php:113
+msgid "Dropped"
+msgstr "ドロップ"
+
+#: Controller/FreeRadiusController.php:72
+#: Controller/FreeRadiusController.php:117
+msgid "Unknown types"
+msgstr "不明なタイプ"
+
+#: Controller/FreeRadiusController.php:76
+msgid "Bad Authenticator"
+msgstr "不正な認証者"
+
+#: Controller/GoogleWsLinksController.php:375
+msgid "invalid value is specified"
+msgstr "無効な値が指定された"
+
+#: Controller/GoogleWsLinksController.php:376
+#: Controller/GoogleWsLinksController.php:1573
+msgid "Bad Request"
+msgstr "不正なリクエスト"
+
+#: Controller/GoogleWsLinksController.php:683
+msgid "no credential is available"
+msgstr "クレデンシャルが利用できません"
+
+#: Controller/GoogleWsLinksController.php:1577 Validation/Validator.php:2510
+#: View/Form/ArrayContext.php:226
+msgid "This field is required"
+msgstr "このフィールドは必須です"
+
+#: Controller/GroupsController.php:86 Controller/GroupsController.php:130
+#: Controller/GroupsController.php:166
+msgid "Invalid group"
+msgstr "無効なグループ"
+
+#: Controller/GroupsController.php:107 Controller/GroupsController.php:136
+msgid "The group has been saved"
+msgstr "グループは保存されました"
+
+#: Controller/GroupsController.php:110 Controller/GroupsController.php:139
+msgid "The group could not be saved. Please, try again."
+msgstr "グループを保存できませんでした。 もう一度やり直してください。"
+
+#: Controller/GroupsController.php:169
+msgid "Group deleted"
+msgstr "グループが削除されました"
+
+#: Controller/GroupsController.php:172
+msgid "Group was not deleted"
+msgstr "グループは削除されませんでした"
+
+#: Controller/HomeServerPoolsController.php:575
+msgid "Could not "
+msgstr "できません "
+
+#: Controller/IdpsController.php:166
+#: Controller/Component/LifeSeedComponent.php:211
+msgid "create"
+msgstr "作成"
+
+#: Controller/IdpsController.php:169
+#: Controller/Component/LifeSeedComponent.php:211
+msgid "update"
+msgstr "更新"
+
+#: Controller/IdpsController.php:181
+#: Controller/Component/LifeSeedComponent.php:212
+msgid "Could not {0} item"
+msgstr "アイテムを{0}できませんでした"
+
+#: Controller/IdpsController.php:261 Controller/IdpsController.php:267
+#: Controller/SubGroupsController.php:82
+msgid "(none)"
+msgstr "(なし)"
+
+#: Controller/NasController.php:357
+msgid "Could not create OpenVPN Client"
+msgstr "OpenVPNクライアントを作成できませんでした"
+
+#: Controller/NasController.php:559
+msgid "Could not create Pptp Client"
+msgstr "Pptpクライアントを作成できませんでした"
+
+#: Controller/NasController.php:662
+msgid "Could not update OpenVPN detail"
+msgstr "OpenVPNの詳細を更新できませんでした"
+
+#: Controller/NasController.php:728
+msgid "Could not update PPTP detail"
+msgstr "PPTPの詳細を更新できませんでした"
+
+#: Controller/NasController.php:794
+msgid "Could not update Dynamic Detail"
+msgstr "動的詳細を更新できませんでした"
+
+#: Controller/NasController.php:1036
+msgid "Could not set Map Zoom"
+msgstr "マップズームを設定できませんでした"
+
+#: Controller/NasController.php:1071
+msgid "Could not set Map Latitude"
+msgstr "マップ緯度を設定できませんでした"
+
+#: Controller/NasController.php:1085
+msgid "Could not set Map Longitude"
+msgstr "マップ経度を設定できませんでした"
+
+#: Controller/NasController.php:1113
+msgid "Could not remove Map"
+msgstr "マップを削除できませんでした"
+
+#: Controller/NasController.php:1142
+msgid "Could not Update Map"
+msgstr "マップを更新できませんでした"
+
+#: Controller/NasController.php:1207
+msgid "OpenVPN"
+msgstr "OpenVPN"
+
+#: Controller/NasController.php:1210
+msgid "PPTP"
+msgstr "PPTP"
+
+#: Controller/NasController.php:1213
+msgid "Dynamic AVP detail"
+msgstr "動的AVPの詳細"
+
+#: Controller/NasController.php:1225
+msgid "NAS"
+msgstr "NAS"
+
+#: Controller/NasController.php:1226
+msgid "Realms"
+msgstr "レルム"
+
+#: Controller/NasController.php:1227
+msgid "Photo"
+msgstr "写真"
+
+#: Controller/NasController.php:1228
+msgid "Availability"
+msgstr "可用性"
+
+#: Controller/NasController.php:1231
+msgid "Heartbeat actions"
+msgstr "ハートビートアクション"
+
+#: Controller/NodeReportsController.php:292
+msgid "Start Scan"
+msgstr "スキャン開始"
+
+#: Controller/PermanentUsersController.php:494
+#: Controller/VouchersController.php:559
+msgid "realm or realm_id not found in DB or not supplied"
+msgstr "レルムまたはrealm_idがDBに見つからないか、提供されていません"
+
+#: Controller/PermanentUsersController.php:836
+msgid "Could not change password"
+msgstr "パスワードを変更できませんでした"
+
+#: Controller/PhraseKeysController.php:54
+#: Controller/PhraseValuesController.php:190
+msgid "Could not create key"
+msgstr "キーを作成できませんでした"
+
+#: Controller/RadacctsController.php:515 Controller/RadacctsController.php:578
+msgid "Show only currently connected"
+msgstr "現在接続されているものだけを表示する"
+
+#: Controller/RadacctsController.php:534 Controller/RadacctsController.php:609
+msgid "Usage graph"
+msgstr "使用状況グラフ"
+
+#: Controller/RadacctsController.php:537 Controller/RadacctsController.php:618
+msgid "Kick user off"
+msgstr "ユーザーを追い出します"
+
+#: Controller/RadacctsController.php:538 Controller/RadacctsController.php:627
+msgid "Close session"
+msgstr "セッションを閉じる"
+
+#: Controller/SoftEtherVpnInstancesController.php:189
+msgid "Could not synchronize some items"
+msgstr "一部のアイテムの同期に失敗しました"
+
+#: Controller/TopUpsController.php:179
+msgid "Permanent Usser {0} NOT found"
+msgstr "常設ユーザー {0} が見つかりません"
+
+#: Controller/VouchersController.php:802
+msgid "Cannot change the password of a single field voucher"
+msgstr "単一フィールドバウチャーのパスワードは変更できません"
+
+#: Controller/VouchersController.php:812 Controller/VouchersController.php:817
+msgid "Could not change Password this time"
+msgstr "今回はパスワードを変更できませんでした"
+
+#: Controller/WizardsController.php:546 Controller/WizardsController.php:561
+msgid "Problem uploading Logo"
+msgstr "ロゴのアップロードで問題が発生しました"
+
+#: Controller/Component/GridButtonsComponent.php:133
+msgid "Change Password"
+msgstr "パスワードの変更"
+
+#: Controller/Component/GridButtonsComponent.php:142
+msgid "Enable / Disable"
+msgstr "有効/無効"
+
+#: Controller/Component/GridButtonsComponent.php:151
+msgid "Test RADIUS"
+msgstr "RADIUSをテストする"
+
+#: Controller/Component/GridButtonsComponent.php:160
+msgid "Graphs"
+msgstr "グラフ"
+
+#: Controller/Component/GridButtonsComponent.php:169
+msgid "e-Mail voucher"
+msgstr "電子メールバウチャー"
+
+#: Controller/Component/GridButtonsComponent.php:178
+msgid "Export to PDF"
+msgstr "PDFエクスポート"
+
+#: Controller/Component/GridButtonsComponent.php:187
+msgid "Attach"
+msgstr "添付"
+
+#: Controller/Component/GridButtonsComponent.php:196
+msgid "Redirect"
+msgstr "リダイレクト"
+
+#: Controller/Component/GridButtonsComponent.php:205
+msgid "Change Device Mode"
+msgstr "デバイスモードの変更"
+
+#: Controller/Component/GridButtonsComponent.php:214
+msgid "Map"
+msgstr "マップ"
+
+#: Controller/Component/GridButtonsComponent.php:224
+msgid "Manage tags"
+msgstr "タグ管理"
+
+#: Controller/Component/GridButtonsComponent.php:233
+msgid "Policies"
+msgstr "ポリシー"
+
+#: Controller/Component/GridButtonsComponent.php:250
+msgid "Preferences"
+msgstr "環境設定"
+
+#: Controller/Component/GridButtonsComponent.php:258
+msgid "BYOD"
+msgstr "BYOD"
+
+#: Controller/Component/GridButtonsComponent.php:267
+msgid "Profile Components"
+msgstr "プロファイルコンポーネント"
+
+#: Controller/Component/GridButtonsComponent.php:276
+msgid "Unknown Clients"
+msgstr "不明なクライアント"
+
+#: Controller/Component/GridButtonsComponent.php:285
+msgid "Advanced Edit"
+msgstr "高度な編集"
+
+#: Controller/Component/GridButtonsComponent.php:312
+msgid "View execute history"
+msgstr "実行履歴の表示"
+
+#: Controller/Component/GridButtonsComponent.php:330
+msgid "Detect Rogue Access Points"
+msgstr "不正なアクセスポイントを検出する"
+
+#: Controller/Component/GridButtonsComponent.php:339
+msgid "View Availability History"
+msgstr "可用性履歴の表示"
+
+#: Controller/Component/GridButtonsComponent.php:348
+msgid "Acknowlege Alert"
+msgstr "アラートを確認する"
+
+#: Controller/Component/GridButtonsComponent.php:573
+msgid "Selection"
+msgstr "選択"
+
+#: Controller/Component/GridButtonsComponent.php:699
+msgid "Edit Photo"
+msgstr "写真を編集する"
+
+#: Controller/Component/GridButtonsComponent.php:778
+msgid "Predefined Commands"
+msgstr "定義済みのコマンド"
+
+#: Controller/Component/GridButtonsComponent.php:831
+msgid "API Reply Preview"
+msgstr "API応答プレビュー"
+
+#: Controller/Component/GridButtonsComponent.php:980
+msgid "Single field"
+msgstr "単一フィールド"
+
+#: Controller/Component/GridButtonsComponent.php:981
+msgid "Username and Password"
+msgstr "ユーザー名とパスワード"
+
+#: Controller/Component/GridButtonsComponent.php:982
+msgid "Import CSV List"
+msgstr "CSVインポート"
+
+#: Controller/Component/GridButtonsComponent.php:997
+msgid "Simple Delete"
+msgstr "単純な削除"
+
+#: Controller/Component/GridButtonsComponent.php:998
+msgid "Bulk Delete"
+msgstr "一括削除"
+
+#: Controller/Component/GridButtonsComponent.php:1102
+msgid "Maps"
+msgstr "マップ"
+
+#: Controller/Component/GridButtonsComponent.php:1374
+#: Controller/Component/GridButtonsComponent.php:1383
+msgid "Nas"
+msgstr "Nas"
+
+#: Controller/Component/GridButtonsComponent.php:1537
+#: Controller/Component/GridButtonsComponent.php:1726
+#: Controller/Component/GridButtonsComponent.php:1779
+#: Controller/Component/GridButtonsComponent.php:1823
+#: Controller/Component/GridButtonsComponent.php:1848
+#: Controller/Component/GridButtonsComponent.php:1877
+#: Controller/Component/GridButtonsComponent.php:1965
+#: Controller/Component/GridButtonsComponent.php:2000
+#: Controller/Component/GridButtonsComponent.php:2121
+#: Controller/Component/GridButtonsComponent.php:2164
+#: Controller/Component/GridButtonsComponent.php:2317
+#: Controller/Component/GridButtonsComponent.php:2404
+msgid "Extra Actions"
+msgstr "追加のアクション"
+
+#: Controller/Component/GridButtonsComponent.php:1576
+msgid "More"
+msgstr "もっと"
+
+#: Controller/Component/GridButtonsComponent.php:1591
+msgid "Edit logo"
+msgstr "ロゴを編集する"
+
+#: Controller/Component/GridButtonsComponent.php:1602
+msgid "Proxy"
+msgstr "プロキシ"
+
+#: Controller/Component/GridButtonsComponent.php:1625
+#: Controller/Component/GridButtonsComponent.php:1654
+msgid "Proxy operation"
+msgstr "プロキシ操作"
+
+#: Controller/Component/GridButtonsComponent.php:1669
+msgid "Data Collection"
+msgstr "データコレクション"
+
+#: Controller/Component/GridButtonsComponent.php:1684
+msgid "Email Addresses"
+msgstr "メールアドレス"
+
+#: Controller/Component/GridButtonsComponent.php:1691
+msgid "Translated Phrases"
+msgstr "翻訳されたフレーズ"
+
+#: Controller/Component/GridButtonsComponent.php:1701
+#: Controller/Component/GridButtonsComponent.php:1714
+msgid "Preview"
+msgstr "プレビュー"
+
+#: Controller/Component/GridButtonsComponent.php:2010
+msgid "home server pools"
+msgstr "ホームサーバープール"
+
+#: Controller/Component/GridButtonsComponent.php:2131
+msgid "home servers"
+msgstr "ホームサーバー"
+
+#: Controller/Component/GridButtonsComponent.php:2174
+#: Controller/Component/GridButtonsComponent.php:2327
+#: Controller/Component/GridButtonsComponent.php:2414
+msgid "synchronize"
+msgstr "同期"
+
+#: Controller/Component/GridButtonsComponent.php:2183
+#: Controller/Component/GridButtonsComponent.php:2230
+msgid "organization"
+msgstr "組織部門"
+
+#: Controller/Component/GridButtonsComponent.php:2220
+msgid "Sub Groups"
+msgstr "サブグループ"
+
+#: Controller/Component/NotesComponent.php:106
+msgid "Could not create note"
+msgstr "ノートを作成できませんでした"
+
+#: Controller/Component/TokenAclComponent.php:25
+msgid "You do not have rights for this action"
+msgstr "このアクションに対する権限がありません"
+
+#: Controller/Component/TokenAuthComponent.php:34
+msgid "Token in wrong format"
+msgstr "間違った形式のトークン"
+
+#: Controller/Component/TokenAuthComponent.php:40
+msgid "Token missing"
+msgstr "トークンがありません"
+
+#: Controller/Component/TokenAuthComponent.php:62
+msgid "No user for token"
+msgstr "トークンのユーザーなし"
+
+#: Model/Table/HomeServerPoolsTable.php:19 Model/Table/HomeServersTable.php:18
+msgid "name"
+msgstr "名前"
+
+#: Model/Table/HomeServerPoolsTable.php:23
+msgid "A {0} is required"
+msgstr "{0} は必須です"
+
+#: Model/Table/HomeServerPoolsTable.php:27 Model/Table/HomeServersTable.php:35
+msgid "The {0} you provided is already taken. Please provide another one."
+msgstr "指定した{0}は既に使用されています。 別のものを提供してください。"
+
+#: Shell/RdShell.php:52
+msgid "RADIUSdesk console for various tasks"
+msgstr "さまざまなタスクのためのRADIUSdeskコンソール"
+
+#: Template/Layout/error.ctp:35 Template/Error/error400.ctp:36
+#: Template/Error/error500.ctp:41
+msgid "Error"
+msgstr "エラー"
+
+#: Template/Layout/error.ctp:43
+msgid "Back"
+msgstr "戻る"
+
+#: Template/Vouchers/export_pdf.ctp:24 Template/Vouchers/export_pdf.ctp:25
+#: Template/Vouchers/export_pdf.ctp:26 Template/Vouchers/export_pdf.ctp:28
+#: Template/Vouchers/export_pdf_wip.ctp:513
+#: Template/Vouchers/export_pdf_wip.ctp:514
+#: Template/Vouchers/export_pdf_wip.ctp:515
+#: Template/Vouchers/export_pdf_wip.ctp:517
+msgid "Internet Access Voucher"
+msgstr "インターネットアクセスバウチャー"
+
+#: Template/Vouchers/export_pdf_wip.ctp:247
+msgid "Address"
+msgstr "アドレス"
+
+#: Template/Vouchers/export_pdf_wip.ctp:256
+msgid "Contact Detail"
+msgstr "連絡先の詳細"
+
+#: Template/Vouchers/export_pdf_wip.ctp:275
+msgid "phone"
+msgstr "電話"
+
+#: Template/Vouchers/export_pdf_wip.ctp:281
+msgid "fax"
+msgstr "ファックス"
+
+#: Template/Vouchers/export_pdf_wip.ctp:287
+msgid "cell"
+msgstr "セル"
+
+#: Template/Vouchers/export_pdf_wip.ctp:388
+msgid "Voucher"
+msgstr "バウチャー"
+
+#: Template/Vouchers/export_pdf_wip.ctp:396
+msgid "Username"
+msgstr "ユーザー名"
+
+#: Template/Vouchers/export_pdf_wip.ctp:404
+msgid "Password"
+msgstr "パスワード"
+
+#: Template/Vouchers/export_pdf_wip.ctp:415
+msgid "Profile"
+msgstr "プロフィール"
+
+#: Template/Vouchers/export_pdf_wip.ctp:426
+msgid "Valid for"
+msgstr "に有効"
+
+#: Template/Vouchers/export_pdf_wip.ctp:436
+msgid "Expiry date"
+msgstr "有効期限"
+
+#: Template/Error/error400.ctp:37
+msgid "The requested address {0} was not found on this server."
+msgstr "要求されたアドレス{0}はこのサーバーで見つかりませんでした。"
+
+#: Template/Error/error500.ctp:39
+msgid "An Internal Error Has Occurred"
+msgstr "内部エラーが発生しました"
+
+#: Controller/Component/AuthComponent.php:502
+msgid "You are not authorized to access that location."
+msgstr "その場所にアクセスする権限がありません。"
+
+#: Controller/Component/CsrfComponent.php:181
+#: Http/Middleware/CsrfProtectionMiddleware.php:231
+msgid "Missing CSRF token cookie"
+msgstr "CSRFトークンCookieがありません"
+
+#: Controller/Component/CsrfComponent.php:185
+#: Http/Middleware/CsrfProtectionMiddleware.php:235
+msgid "CSRF token mismatch."
+msgstr "CSRFトークンの不一致。"
+
+#: Error/ExceptionRenderer.php:301
+msgid "Not Found"
+msgstr "見つかりません"
+
+#: Error/ExceptionRenderer.php:303
+msgid "An Internal Error Has Occurred."
+msgstr "内部エラーが発生しました。"
+
+#: Http/Response.php:2680
+msgid "The requested file contains `..` and will not be read."
+msgstr "要求されたファイルには`..`が含まれており、読み取れません。"
+
+#: Http/Response.php:2701
+msgid "The requested file was not found"
+msgstr "要求されたファイルが見つかりませんでした"
+
+#: I18n/Number.php:106
+msgid "{0,number,#,###.##} KB"
+msgstr "{0,number,#,###.##} KB"
+
+#: I18n/Number.php:108
+msgid "{0,number,#,###.##} MB"
+msgstr "{0,number,#,###.##} MB"
+
+#: I18n/Number.php:110
+msgid "{0,number,#,###.##} GB"
+msgstr "{0,number,#,###.##} GB"
+
+#: I18n/Number.php:112
+msgid "{0,number,#,###.##} TB"
+msgstr "{0,number,#,###.##} TB"
+
+#: I18n/Number.php:104
+msgid "{0,number,integer} Byte"
+msgid_plural "{0,number,integer} Bytes"
+msgstr[0] "{0,number,integer} Byte"
+
+#: I18n/RelativeTimeFormatter.php:80
+msgid "{0} from now"
+msgstr "今から{0}"
+
+#: I18n/RelativeTimeFormatter.php:80
+msgid "{0} ago"
+msgstr "{0} 前"
+
+#: I18n/RelativeTimeFormatter.php:83
+msgid "{0} after"
+msgstr "{0} 後"
+
+#: I18n/RelativeTimeFormatter.php:83
+msgid "{0} before"
+msgstr "{0} 以前"
+
+#: I18n/RelativeTimeFormatter.php:114
+msgid "just now"
+msgstr "ちょうど今"
+
+#: I18n/RelativeTimeFormatter.php:151
+msgid "about a second ago"
+msgstr "約1秒前"
+
+#: I18n/RelativeTimeFormatter.php:152
+msgid "about a minute ago"
+msgstr "約1分前"
+
+#: I18n/RelativeTimeFormatter.php:153
+msgid "about an hour ago"
+msgstr "約1時間前"
+
+#: I18n/RelativeTimeFormatter.php:154 I18n/RelativeTimeFormatter.php:332
+msgid "about a day ago"
+msgstr "約1日前"
+
+#: I18n/RelativeTimeFormatter.php:155 I18n/RelativeTimeFormatter.php:333
+msgid "about a week ago"
+msgstr "約1週前"
+
+#: I18n/RelativeTimeFormatter.php:156 I18n/RelativeTimeFormatter.php:334
+msgid "about a month ago"
+msgstr "約1月前"
+
+#: I18n/RelativeTimeFormatter.php:157 I18n/RelativeTimeFormatter.php:335
+msgid "about a year ago"
+msgstr "約1年前"
+
+#: I18n/RelativeTimeFormatter.php:168
+msgid "in about a second"
+msgstr "約1秒で"
+
+#: I18n/RelativeTimeFormatter.php:169
+msgid "in about a minute"
+msgstr "約1分で"
+
+#: I18n/RelativeTimeFormatter.php:170
+msgid "in about an hour"
+msgstr "約1時間で"
+
+#: I18n/RelativeTimeFormatter.php:171 I18n/RelativeTimeFormatter.php:346
+msgid "in about a day"
+msgstr "約1日で"
+
+#: I18n/RelativeTimeFormatter.php:172 I18n/RelativeTimeFormatter.php:347
+msgid "in about a week"
+msgstr "約1週で"
+
+#: I18n/RelativeTimeFormatter.php:173 I18n/RelativeTimeFormatter.php:348
+msgid "in about a month"
+msgstr "約1月で"
+
+#: I18n/RelativeTimeFormatter.php:174 I18n/RelativeTimeFormatter.php:349
+msgid "in about a year"
+msgstr "約1年で"
+
+#: I18n/RelativeTimeFormatter.php:304
+msgid "today"
+msgstr "今日"
+
+#: I18n/RelativeTimeFormatter.php:370
+msgid "%s ago"
+msgstr "%s 前"
+
+#: I18n/RelativeTimeFormatter.php:371
+msgid "on %s"
+msgstr "％sで"
+
+#: I18n/RelativeTimeFormatter.php:47 I18n/RelativeTimeFormatter.php:126
+#: I18n/RelativeTimeFormatter.php:316
+msgid "{0} year"
+msgid_plural "{0} years"
+msgstr[0] "{0} 年"
+
+#: I18n/RelativeTimeFormatter.php:51 I18n/RelativeTimeFormatter.php:129
+#: I18n/RelativeTimeFormatter.php:319
+msgid "{0} month"
+msgid_plural "{0} months"
+msgstr[0] "{0} 月"
+
+#: I18n/RelativeTimeFormatter.php:57 I18n/RelativeTimeFormatter.php:132
+#: I18n/RelativeTimeFormatter.php:322
+msgid "{0} week"
+msgid_plural "{0} weeks"
+msgstr[0] "{0} 週"
+
+#: I18n/RelativeTimeFormatter.php:59 I18n/RelativeTimeFormatter.php:135
+#: I18n/RelativeTimeFormatter.php:325
+msgid "{0} day"
+msgid_plural "{0} days"
+msgstr[0] "{0} 日"
+
+#: I18n/RelativeTimeFormatter.php:64 I18n/RelativeTimeFormatter.php:138
+msgid "{0} hour"
+msgid_plural "{0} hours"
+msgstr[0] "{0} 時"
+
+#: I18n/RelativeTimeFormatter.php:68 I18n/RelativeTimeFormatter.php:141
+msgid "{0} minute"
+msgid_plural "{0} minutes"
+msgstr[0] "{0} 分"
+
+#: I18n/RelativeTimeFormatter.php:72 I18n/RelativeTimeFormatter.php:144
+msgid "{0} second"
+msgid_plural "{0} seconds"
+msgstr[0] "{0} 秒"
+
+#: ORM/RulesChecker.php:56
+msgid "This value is already in use"
+msgstr "この値はすでに使用されています"
+
+#: ORM/RulesChecker.php:103
+msgid "This value does not exist"
+msgstr "この値は存在しません"
+
+#: ORM/RulesChecker.php:127
+msgid "The count does not match {0}{1}"
+msgstr "カウントが{0}{1}と一致しません"
+
+#: Utility/Text.php:933
+msgid "and"
+msgstr "と"
+
+#: Validation/Validator.php:2532
+msgid "This field cannot be left empty"
+msgstr "このフィールドを空のままにすることはできません"
+
+#: Validation/Validator.php:2691
+msgid "The provided value is invalid"
+msgstr "指定された値が無効です"
+
+#: View/Helper/FormHelper.php:1114
+msgid "Edit {0}"
+msgstr "{0}を編集"
+
+#: View/Helper/FormHelper.php:1116
+msgid "New {0}"
+msgstr "新しい{0}"
+
+#: View/Helper/FormHelper.php:2036
+msgid "Submit"
+msgstr "送信"
+
+#: View/Helper/HtmlHelper.php:831
+msgid "Home"
+msgstr "ホーム"
+
+#: View/Widget/DateTimeWidget.php:539
+msgid "January"
+msgstr "1月"
+
+#: View/Widget/DateTimeWidget.php:540
+msgid "February"
+msgstr "2月"
+
+#: View/Widget/DateTimeWidget.php:541
+msgid "March"
+msgstr "3月"
+
+#: View/Widget/DateTimeWidget.php:542
+msgid "April"
+msgstr "4月"
+
+#: View/Widget/DateTimeWidget.php:543
+msgid "May"
+msgstr "5月"
+
+#: View/Widget/DateTimeWidget.php:544
+msgid "June"
+msgstr "六月"
+
+#: View/Widget/DateTimeWidget.php:545
+msgid "July"
+msgstr "7月"
+
+#: View/Widget/DateTimeWidget.php:546
+msgid "August"
+msgstr "8月"
+
+#: View/Widget/DateTimeWidget.php:547
+msgid "September"
+msgstr "9月"
+
+#: View/Widget/DateTimeWidget.php:548
+msgid "October"
+msgstr "10月"
+
+#: View/Widget/DateTimeWidget.php:549
+msgid "November"
+msgstr "11月"
+
+#: View/Widget/DateTimeWidget.php:550
+msgid "December"
+msgstr "12月"
+
+#~ msgid "Top-Ups"
+#~ msgstr "トップアップ"
+
+#~ msgid "Access Providers"
+#~ msgstr "アクセスプロバイダー"
+
+#~ msgid "Site Managers"
+#~ msgstr "現場管理者"
+
+#~ msgid "Could not NAS (FOR COA)"
+#~ msgstr "NASにできませんでした（COAの場合）"

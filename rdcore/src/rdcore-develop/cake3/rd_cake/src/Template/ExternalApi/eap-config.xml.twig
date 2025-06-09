@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EAPIdentityProviderList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="eap-metadata.xsd">
+  <EAPIdentityProvider ID="{{ home_domain }}" namespace="urn:RFC4282:realm" lang="en" version="1">
+{% if expiration_date != '' %}
+    <ValidUntil>{{ expiration_date }}</ValidUntil>
+{% endif %}
+    <AuthenticationMethods>
+      <AuthenticationMethod>
+{% if eap_method_type != false %}
+        <EAPMethod>
+          <Type>{{ eap_method_type }}</Type>
+        </EAPMethod>
+{% endif %}
+        <ServerSideCredential>
+          <CA format="X.509" encoding="base64">
+{{ ca_cert }}
+          </CA>
+          <ServerID>{{ aaa_fqdn }}</ServerID>
+        </ServerSideCredential>
+        <ClientSideCredential>
+          <OuterIdentity>{{ anon_id }}</OuterIdentity>
+          <UserName>{{ user_id }}</UserName>
+          <Username>{{ user_id }}</Username>
+          <Password>{{ passwd }}</Password>
+        </ClientSideCredential>
+{% if inner_auth != false %}
+        <InnerAuthenticationMethod>
+{% if inner_auth.eap_method_type != false %}
+          <EAPMethod>
+            <Type>{{ inner_auth.eap_method_type  }}</Type>
+          </EAPMethod>
+{% elseif inner_auth.non_eap_auth_method_type != false %}
+          <NonEAPAuthMethod>
+            <Type>{{ inner_auth.non_eap_auth_method_type }}</Type>
+          </NonEAPAuthMethod>
+{% endif %}
+        </InnerAuthenticationMethod>
+{% endif %}
+      </AuthenticationMethod>
+    </AuthenticationMethods>
+    <CredentialApplicability>
+{% if ssid != '' %}
+      <IEEE80211>
+        <SSID>{{ ssid }}</SSID>
+        <MinRSNProto>CCMP</MinRSNProto>
+      </IEEE80211>
+{% endif %}
+{% for oi in ois %}
+      <IEEE80211>
+        <ConsortiumOID>{{ oi }}</ConsortiumOID>
+      </IEEE80211>
+{% endfor %}
+    </CredentialApplicability>
+    <ProviderInfo>
+      <DisplayName>{{ friendly_name }}</DisplayName>
+      <Helpdesk/>
+    </ProviderInfo>
+  </EAPIdentityProvider>
+</EAPIdentityProviderList>

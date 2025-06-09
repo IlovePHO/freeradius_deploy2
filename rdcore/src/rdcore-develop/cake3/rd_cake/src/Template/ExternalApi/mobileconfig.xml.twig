@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadDisplayName</key>
+    <string>{{ payload_display_name }}</string>
+    <key>PayloadIdentifier</key>
+    <string>{{ plid }}</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>{{ pl_uuid}}</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+{% if expiration_date != '' %}
+    <key>RemovalDate</key>
+    <date>{{ expiration_date }}</date>
+{% endif %}
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>AutoJoin</key>
+            <true/>
+            <key>CaptiveBypass</key>
+            <false/>
+            <key>DisableAssociationMACRandomization</key>
+            <false/>
+            <key>EAPClientConfiguration</key>
+            <dict>
+                <key>AcceptEAPTypes</key>
+                <array>
+{% if eap_method_types is not null and eap_method_types|length > 0 %}
+{% for eap_method_type in eap_method_types %}
+                    <integer>{{ eap_method_type }}</integer>
+{% endfor %}
+{% endif %}
+                </array>
+                <key>TLSMaximumVersion</key>
+                <string>1.2</string>
+                <key>TLSMinimumVersion</key>
+                <string>1.1</string>
+                <key>TLSTrustedServerNames</key>
+                <array>
+                    <string>{{ aaa_fqdn }}</string>
+                </array>
+                <key>PayloadCertificateAnchorUUID</key>
+                <array>
+                    <string>{{ uuid2 }}</string>
+                </array>
+                <key>TTLSInnerAuthentication</key>
+                <string>{{ ttls_inner_authentication }}</string>
+                <key>UserName</key>
+                <string>{{ user_id }}</string>
+                <key>UserPassword</key>
+                <string>{{ passwd }}</string>
+                <key>OuterIdentity</key>
+                <string>{{ anon_id }}</string>
+            </dict>
+            <key>EncryptionType</key>
+            <string>WPA2</string>
+            <key>HIDDEN_NETWORK</key>
+            <false/>
+            <key>IsHotspot</key>
+            <false/>
+            <key>PayloadDescription</key>
+            <string>{{ description }}</string>
+            <key>PayloadDisplayName</key>
+            <string>Wi-Fi</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.wifi.managed.{{ uuid1 }}</string>
+            <key>PayloadType</key>
+            <string>com.apple.wifi.managed</string>
+            <key>PayloadUUID</key>
+            <string>{{ uuid1 }}</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>ProxyType</key>
+            <string>None</string>
+{% if ssid != '' %}
+            <key>SSID_STR</key>
+            <string>{{ ssid }}</string>
+{% endif %}
+{% if nai_realms_names is not null and nai_realms_names|length > 0 %}
+            <key>NAIRealmNames</key>
+            <array>
+{% for nai_realms_name in nai_realms_names %}
+                <string>{{ nai_realms_name }}</string>
+{% endfor %}
+            </array>
+{% endif %}
+{% if roaming_consortium_ois is not null and roaming_consortium_ois|length > 0 %}
+            <key>RoamingConsortiumOIs</key>
+            <array>
+{% for roaming_consortium_oi in roaming_consortium_ois %}
+                <string>{{ roaming_consortium_oi }}</string>
+{% endfor %}
+            </array>
+{% endif %}
+        </dict>
+        <dict>
+            <key>PayloadDisplayName</key>
+            <string>{{ ca_cert_name }}</string>
+            <key>PayloadType</key>
+            <string>com.apple.security.pkcs1</string>
+            <key>PayloadUUID</key>
+            <string>{{ uuid2 }}</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.security.pkcs1.{{ uuid2 }}</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadContent</key>
+            <data>{{ ca_cert }}</data>
+        </dict>
+    </array>
+</dict>
+</plist>

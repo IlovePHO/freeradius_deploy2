@@ -1,0 +1,118 @@
+diff -uprN a/etc/freeradius/sites-available/dynamic-clients b/etc/freeradius/sites-available/dynamic-clients
+--- a/etc/freeradius/sites-available/dynamic-clients	2022-07-01 01:41:46.625077131 +0000
++++ b/etc/freeradius/sites-available/dynamic-clients	2022-07-01 01:41:46.637077073 +0000
+@@ -93,7 +93,7 @@ server dynamic_clients {
+ 				FreeRADIUS-Client-Require-MA = no
+ 
+ 				# secret
+-				FreeRADIUS-Client-Secret = "testing123"
++				FreeRADIUS-Client-Secret = "FREERADIUS_CLIENT_SECRET"
+ 
+ 				# shortname
+ 				FreeRADIUS-Client-Shortname = "%{Packet-Src-IP-Address}"
+diff -uprN a/etc/mysql/conf.d/disable_strict_mode.cnf b/etc/mysql/conf.d/disable_strict_mode.cnf
+--- a/etc/mysql/conf.d/disable_strict_mode.cnf	1970-01-01 00:00:00.000000000 +0000
++++ b/etc/mysql/conf.d/disable_strict_mode.cnf	2022-07-01 01:41:46.637077073 +0000
+@@ -0,0 +1,2 @@
++[mysqld]
++sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+diff -uprN a/etc/nginx/sites-available/default b/etc/nginx/sites-available/default
+--- a/etc/nginx/sites-available/default	2022-07-01 01:41:46.625077131 +0000
++++ b/etc/nginx/sites-available/default	2022-07-01 01:41:46.637077073 +0000
+@@ -41,10 +41,14 @@ server {
+ 	root /var/www/html;
+ 
+ 	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
++	index index.php index.html index.htm index.nginx-debian.html;
+ 
+ 	server_name _;
+ 
++	location /cake3/rd_cake/node-reports/submit_report.json {
++		try_files $uri $uri/ /reporting/reporting.php;
++	}
++
+ 	location / {
+ 		# First attempt to serve request as file, then
+ 		# as directory, then fall back to displaying a 404.
+@@ -53,21 +57,34 @@ server {
+ 
+ 	# pass PHP scripts to FastCGI server
+ 	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
++	location ~ \.php$ {
++		include snippets/fastcgi-php.conf;
++	
++		# With php-fpm (or other unix sockets):
++		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
++		# With php-cgi (or other tcp sockets):
+ 	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
++	}
+ 
+ 	# deny access to .htaccess files, if Apache's document root
+ 	# concurs with nginx's one
+ 	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	location ~ /\.ht {
++		deny all;
++	}
++
++	location ~ ^/cake3/.+\.(jpg|jpeg|gif|png|ico|js|css)$ {
++		rewrite ^/cake3/rd_cake/webroot/(.*)$ /cake3/rd_cake/webroot/$1 break;
++		rewrite ^/cake3/rd_cake/(.*)$ /cake3/rd_cake/webroot/$1 break;
++		access_log off;
++		expires max;
++		add_header Cache-Control public;
++	}
++
++	location /cake3/rd_cake {
++		rewrite ^/cake3/rd_cake(.+)$ /cake3/rd_cake/webroot$1 break;
++		try_files $uri $uri/ /cake3/rd_cake/index.php$is_args$args;
++	}
+ }
+ 
+ 
+diff -uprN a/etc/sudoers b/etc/sudoers
+--- a/etc/sudoers	2022-07-01 01:41:46.625077131 +0000
++++ b/etc/sudoers	2022-10-30 08:43:17.300291476 +0000
+@@ -21,6 +21,10 @@ root	ALL=(ALL:ALL) ALL
+ 
+ # Members of the admin group may gain root privileges
+ %admin ALL=(ALL) ALL
++%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:/var/www/html/cake3/rd_cake/setup/scripts/radmin_wrapper.pl
++%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:/usr/bin/openssl
++%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:/usr/bin/xmlsec1
++%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:/usr/local/sbin/sync_hmac_key.sh
+ 
+ # Allow members of group sudo to execute any command
+ %sudo	ALL=(ALL:ALL) ALL
+diff -uprN a/lib/systemd/system/freeradius.service b/lib/systemd/system/freeradius.service
+--- a/lib/systemd/system/freeradius.service	2022-07-01 01:41:46.637077073 +0000
++++ b/lib/systemd/system/freeradius.service	2022-10-30 11:40:22.992013108 +0000
+@@ -33,11 +33,11 @@ Group=freerad
+ # This does not work on Ubuntu Bionic:
+ ExecStartPre=/bin/chown freerad:freerad /var/run/freeradius
+ 
+-ExecStartPre=/usr/sbin/freeradius $FREERADIUS_OPTIONS -Cx -lstdout
++#ExecStartPre=/usr/sbin/freeradius $FREERADIUS_OPTIONS -Cx -lstdout
+ ExecStart=/usr/sbin/freeradius -f $FREERADIUS_OPTIONS
+ Restart=on-failure
+ RestartSec=5
+-ExecReload=/usr/sbin/freeradius $FREERADIUS_OPTIONS -Cxm -lstdout
++#ExecReload=/usr/sbin/freeradius $FREERADIUS_OPTIONS -Cxm -lstdout
+ ExecReload=/bin/kill -HUP $MAINPID
+ 
+ #  Don't elevate privileges after starting
+diff -uprN a/usr/lib/tmpfiles.d/freeradius.conf b/usr/lib/tmpfiles.d/freeradius.conf
+--- a/usr/lib/tmpfiles.d/freeradius.conf	1970-01-01 00:00:00.000000000 +0000
++++ b/usr/lib/tmpfiles.d/freeradius.conf	2022-07-01 01:41:46.641077054 +0000
+@@ -0,0 +1 @@
++d /run/freeradius 750 freerad freerad -

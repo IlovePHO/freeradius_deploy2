@@ -1,0 +1,3 @@
+perl ls_pl_determine_proxy_destination {
+	filename = ${modconfdir}/perl/ls_determine_proxy_destination.pl
+}

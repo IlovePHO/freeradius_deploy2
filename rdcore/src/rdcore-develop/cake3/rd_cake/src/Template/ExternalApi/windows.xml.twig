@@ -1,0 +1,73 @@
+<CarrierProvisioning xmlns="http://www.microsoft.com/networking/CarrierControl/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Global>
+    <CarrierId>{{ '{' }}{{ carrier_id }}{{ '}' }}</CarrierId>
+    <SubscriberId>{{ subscriber_id }}</SubscriberId>
+  </Global>
+  <WLANProfiles>
+    <WLANProfile xmlns="http://www.microsoft.com/networking/CarrierControl/WLAN/v1">
+      <name>{{ friendly_name }}</name>
+      <SSIDConfig>
+        <SSID>
+          <name>{{ ssid }}</name>
+        </SSID>
+      </SSIDConfig>
+      <MSM>
+        <security>
+          <authEncryption>
+            <authentication>WPA2</authentication>
+            <encryption>AES</encryption>
+            <useOneX>true</useOneX>
+          </authEncryption>
+          <OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+            <authMode>user</authMode>
+            <EAPConfig>
+              <EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+                <EapMethod>
+                  <Type xmlns="http://www.microsoft.com/provisioning/EapCommon">{{ eap_method_type }}</Type>
+                  <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
+                  <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
+                  <AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">{{ author_id }}</AuthorId>
+                </EapMethod>
+                <Config>
+                  <EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1">
+                    <ServerValidation>
+                      <DisableUserPromptForServerValidation>false</DisableUserPromptForServerValidation>
+                      <ServerNames>{{ aaa_fqdn }}</ServerNames>
+                      <TrustedRootCAHash>{{ trusted_root_ca_hash }}</TrustedRootCAHash>
+                      <DisablePrompt>false</DisablePrompt>
+                    </ServerValidation>
+                    <Phase2Authentication>
+{% if ttls_inner_authentication == 'PAP' %}
+                      <PAPAuthentication/>
+{% elseif ttls_inner_authentication == 'MSCHAP' %}
+                      <MSCHAPAuthentication/>
+{% elseif ttls_inner_authentication == 'MSCHAPv2' %}
+                      <MSCHAPv2Authentication/>
+{% endif %}
+                    </Phase2Authentication>
+                    <Phase1Identity>
+                      <IdentityPrivacy>true</IdentityPrivacy>
+                      <AnonymousIdentity>{{ anon_id }}</AnonymousIdentity>
+                    </Phase1Identity>
+                  </EapTtls>
+                </Config>
+              </EapHostConfig>
+            </EAPConfig>
+          </OneX>
+          <EapHostUserCredentials xmlns="http://www.microsoft.com/provisioning/EapHostUserCredentials" xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials" xmlns:eapCommon="http://www.microsoft.com/provisioning/EapCommon">
+            <EapMethod>
+              <eapCommon:Type>{{ eap_method_type }}</eapCommon:Type>
+              <eapCommon:AuthorId>{{ author_id }}</eapCommon:AuthorId>
+            </EapMethod>
+            <Credentials>
+              <EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsUserPropertiesV1">
+                <Username>{{ user_id }}</Username>
+                <Password>{{ passwd }}</Password>
+              </EapTtls>
+            </Credentials>
+          </EapHostUserCredentials>
+        </security>
+      </MSM>
+    </WLANProfile>
+  </WLANProfiles>
+</CarrierProvisioning>

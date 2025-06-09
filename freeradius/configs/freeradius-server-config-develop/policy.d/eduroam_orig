@@ -1,0 +1,28 @@
+eduroam_ssid_flow {
+#	if (noop || !&Stripped-User-Domain) {
+#			reject
+#	}
+
+	if (&User-Name !~ /(.+\.)?life-seed\.co\.jp$/ && &User-Name !~ /(.+\.)?keishiryo$/){
+		if (&Called-Station-Id =~ /(.+\.)?cityroam$/){
+			update {
+				control:Proxy-To-Realm := 'cityroam_flr'
+			}
+		return
+		} else {
+			if (&Called-Station-Id =~ /(.+\.)?eduroam$/){
+				if(&User-Name =~ /(.+\.)?anyroam\.net$/){
+					update {
+						control:Proxy-To-Realm := 'cityroam_flr'
+					}
+				return
+				} else {
+				update {
+					control:Proxy-To-Realm := 'eduroam_flr'
+				}
+				return
+				}
+			}
+		}
+	}
+}

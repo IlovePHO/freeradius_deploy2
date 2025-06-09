@@ -1,0 +1,9 @@
+<?php
+
+$config = [];
+
+$config['se_url_start']		= 'https://';
+$config['se_url_end']		= ':5555/api/';
+$config['se_admin_password']	= '${SE_ADMIN_PASSWORD}';
+
+?>
