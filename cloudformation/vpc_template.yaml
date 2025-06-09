@@ -1,0 +1,382 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  VpcAvailabilityZone:
+    Type: String
+    Default: ap-northeast-1a
+  VpcAvailabilityZone2:
+    Type: String
+    Default: ap-northeast-1c
+  S3DeployBucketName:
+    Type: String
+    Default: ""
+  S3ShareBucketName:
+    Type: String
+    Default: ""
+
+Resources:
+  LsCloudVpc:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-Vpc"
+  IPv6CidrBlock:
+    Type: 'AWS::EC2::VPCCidrBlock'
+    Properties:
+      AmazonProvidedIpv6CidrBlock: true
+      VpcId: !Ref LsCloudVpc
+  PublicSubnet:
+    Type: 'AWS::EC2::Subnet'
+    DependsOn:
+      - IPv6CidrBlock
+    Properties:
+      AvailabilityZone: !Ref VpcAvailabilityZone
+      AssignIpv6AddressOnCreation: true
+      MapPublicIpOnLaunch: true
+      CidrBlock: !Select 
+        - 0
+        - 'Fn::Cidr':
+            - !GetAtt 
+              - LsCloudVpc
+              - CidrBlock
+            - 1
+            - 12
+      Ipv6CidrBlock: !Select 
+        - 0
+        - 'Fn::Cidr':
+            - !Select 
+              - 0
+              - !GetAtt 
+                - LsCloudVpc
+                - Ipv6CidrBlocks
+            - 1
+            - 64
+      VpcId: !Ref LsCloudVpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-PublicSubnet"
+  VpnSubnet:
+    Type: 'AWS::EC2::Subnet'
+    DependsOn:
+      - IPv6CidrBlock
+    Properties:
+      AvailabilityZone: !Ref VpcAvailabilityZone
+      AssignIpv6AddressOnCreation: true
+      CidrBlock: !Select 
+        - 1
+        - 'Fn::Cidr':
+            - !GetAtt 
+              - LsCloudVpc
+              - CidrBlock
+            - 2
+            - 12
+      Ipv6CidrBlock: !Select 
+        - 1
+        - 'Fn::Cidr':
+            - !Select 
+              - 0
+              - !GetAtt 
+                - LsCloudVpc
+                - Ipv6CidrBlocks
+            - 2
+            - 64
+      VpcId: !Ref LsCloudVpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-VpnSubnet"
+  VpnSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    DependsOn:
+      - IPv6CidrBlock
+    Properties:
+      AvailabilityZone: !Ref VpcAvailabilityZone2
+      AssignIpv6AddressOnCreation: true
+      CidrBlock: !Select
+        - 2
+        - 'Fn::Cidr':
+            - !GetAtt
+              - LsCloudVpc
+              - CidrBlock
+            - 3
+            - 12
+      Ipv6CidrBlock: !Select
+        - 2
+        - 'Fn::Cidr':
+            - !Select
+              - 0
+              - !GetAtt
+                - LsCloudVpc
+                - Ipv6CidrBlocks
+            - 3
+            - 64
+      VpcId: !Ref LsCloudVpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-VpnSubnet2"
+  LsCloudInternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-InternetGateway"
+  LsCloudInternetGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref LsCloudVpc
+      InternetGatewayId: !Ref LsCloudInternetGateway
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref LsCloudVpc
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-PublicRouteTable"
+  PublicRouteDefaultGwIPv4:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref LsCloudInternetGateway
+  PublicRouteDefaultGwIPv6:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationIpv6CidrBlock: '::/0'
+      GatewayId: !Ref LsCloudInternetGateway
+  PublicRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet
+  SecurityGroupSSH:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for SSH access
+      GroupName: SSHAccess
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 210.230.211.211/32
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 60.45.74.207/32
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 202.171.130.101/32
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 61.206.118.199/32
+  SecurityGroupHTTP:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for HTTP access
+      GroupName: HTTPAccess
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 210.230.211.211/32
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 60.45.74.207/32
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 202.171.130.101/32
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 61.206.118.199/32
+  SecurityGroupHTTPS:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for HTTPS access
+      GroupName: HTTPSAccess
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: 210.230.211.211/32
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: 60.45.74.207/32
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: 202.171.130.101/32
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: 61.206.118.199/32
+  SecurityGroupL2TP:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for L2TP access
+      GroupName: L2TPAccess
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: '50'
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: '500'
+          ToPort: '500'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: '1701'
+          ToPort: '1701'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: '4500'
+          ToPort: '4500'
+          CidrIp: 0.0.0.0/0
+  SecurityGroupWireGuard:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for WireGuard access
+      GroupName: WireGuardAccess
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: udp
+          FromPort: '51820'
+          ToPort: '51820'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '5555'
+          ToPort: '5555'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: '5555'
+          ToPort: '5555'
+          CidrIp: 0.0.0.0/0
+    SecurityGroupVpnSubnet:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for VpnSubnet
+      GroupName: VpnSubnet
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: !GetAtt VpnSubnet.CidrBlock
+  SecurityGroupRdsSubnetGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security group for RdsSubnetGroup
+      GroupName: RdsSubnetGroup
+      VpcId: !Ref LsCloudVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: !GetAtt VpnSubnet.CidrBlock
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: !GetAtt VpnSubnet2.CidrBlock
+  LsCloudS3DeployAccessPoint:
+    Type: 'AWS::S3::AccessPoint'
+    Properties:
+      Bucket: !Ref S3DeployBucketName
+      Name: !Sub
+        - "${S3DeployBucketName}-${AWS::StackName}"
+        - {}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VpcConfiguration:
+        VpcId: !Ref LsCloudVpc
+  LsCloudS3ShareAccessPoint:
+    Type: 'AWS::S3::AccessPoint'
+    Properties:
+      Bucket: !Ref S3ShareBucketName
+      Name: !Sub
+        - "${S3ShareBucketName}-${AWS::StackName}"
+        - {}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VpcConfiguration:
+        VpcId: !Ref LsCloudVpc
+  LsCloudS3VpcEndpoint:
+    Type: 'AWS::EC2::VPCEndpoint'
+    Properties:
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+      VpcId: !Ref LsCloudVpc
+      VpcEndpointType: 'Gateway'
+      RouteTableIds:
+        - !Ref PublicRouteTable
+
+Outputs:
+  LsCloudVpcId:
+    Value: !Ref LsCloudVpc
+    Export:
+      Name: !Sub "${AWS::StackName}-LsCloudVpcId"
+  PublicSubnet:
+    Value: !Ref PublicSubnet
+    Export:
+      Name: !Sub "${AWS::StackName}-PublicSubnet"
+  SecurityGroupSSH:
+    Value: !Ref SecurityGroupSSH
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupSSH"
+  SecurityGroupHTTP:
+    Value: !Ref SecurityGroupHTTP
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupHTTP"
+  SecurityGroupHTTPS:
+    Value: !Ref SecurityGroupHTTPS
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupHTTPS"
+  SecurityGroupL2TP:
+    Value: !Ref SecurityGroupL2TP
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupL2TP"
+  SecurityGroupWireGuard:
+    Value: !Ref SecurityGroupWireGuard
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupWireGuard"
+  SecurityGroupVpnSubnet:
+    Value: !Ref SecurityGroupVpnSubnet
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupVpnSubnet"
+  SecurityGroupRdsSubnetGroup:
+    Value: !Ref SecurityGroupRdsSubnetGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-SecurityGroupRdsSubnetGroup"
+  VpnSubnet:
+    Value: !Ref VpnSubnet
+    Export:
+      Name: !Sub "${AWS::StackName}-VpnSubnet"
+  VpnSubnet2:
+    Value: !Ref VpnSubnet2
+    Export:
+      Name: !Sub "${AWS::StackName}-VpnSubnet2"
+  LsCloudS3DeployAccessPointArn:
+    Value: !GetAtt LsCloudS3DeployAccessPoint.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-LsCloudS3DeployAccessPointArn"
+  LsCloudS3ShareAccessPointArn:
+    Value: !GetAtt LsCloudS3ShareAccessPoint.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-LsCloudS3ShareAccessPointArn"
+  LsCloudS3ShareBucketName:
+    Value: !Ref S3ShareBucketName
+    Export:
+      Name: !Sub "${AWS::StackName}-LsCloudS3ShareBucketName"

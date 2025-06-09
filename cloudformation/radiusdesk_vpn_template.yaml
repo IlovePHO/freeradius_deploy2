@@ -1,0 +1,852 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  BaseStack:
+    Type: String
+    Default: vpc-test
+  RdsStack:
+    Type: String
+    Default: vpc-test-rds
+  VpcAvailabilityZone:
+    Type: String
+    Default: ap-northeast-1a
+  RadiusDeskWanEipAllocationId:
+    Type: String
+    Default: ""
+  RadiusDeskInstanceType:
+    Type: String
+    Default: t2.micro
+  RadiusDeskInstanceImageId:
+    Type: String
+    Default: ami-0a3eb6ca097b78895
+  RadiusDeskInstanceKeyName:
+    Type: String
+    Default: MyKeyPair
+  VpnServerWanEipAllocationId:
+    Type: String
+    Default: ""
+  VpnServerInstanceType:
+    Type: String
+    Default: t2.micro
+  VpnServerInstanceImageId:
+    Type: String
+    Default: ami-00c8dfcb0b542ee0c 
+  VpnServerInstanceKeyName:
+    Type: String
+    Default: MyKeyPair
+  AwsAccessKeyId:
+    Type: String
+    Default: ""
+  AwsSecretAccessKey:
+    Type: String
+    Default: ""
+  RdcoreTarBz2Name:
+    Type: String
+    Default: rdcore-develop-20221031.tar.bz2
+  FreeRadiusConfTarBz2Name:
+    Type: String
+    Default: freeradius-server-config-20221031.tar.bz2
+  ComposerUpdateTarBz2Name:
+    Type: String
+    Default: composer-package-update-20220920.tar.bz2
+  VpnServerSoftEtherTag:
+    Type: String
+    Default: 5.02.5180
+  SoftEtherTarBz2Name:
+    Type: String
+    Default: softethervpn-20221028.tar.bz2
+  VpnServerPassword:
+    Type: String
+    Default: DEFAULT_PASSWORD
+  RadiusDeskVxlanIpAddr:
+    Type: String
+    Default: 172.16.0.1
+  RadiusDeskVxlanIpPrefix:
+    Type: Number
+    Default: 16
+    MaxValue: 32
+    MinValue: 0
+  VxlanId:
+    Type: Number
+    Default: 10
+    MaxValue: 16777215
+    MinValue: 0
+  RdsSubnetIfname:
+    Type: String
+    Default: eth1
+  RdsDbName:
+    Type: String
+    Default: rd
+  RdsMasterUsername:
+    Type: String
+    Default: admin
+  RdsMasterUserPassword:
+    Type: String
+    Default: ""
+  RdsUsername:
+    Type: String
+    Default: rd
+  RdsUserPassword:
+    Type: String
+    Default: rd
+
+  S3ShareMountPoint:
+    Type: String
+    Default: /mnt/s3share
+
+  VpnServerVxlanIpAddr:
+    Type: String
+    Default: 172.16.0.2
+  VpnServerVxlanIpPrefix:
+    Type: Number
+    Default: 16
+    MaxValue: 32
+    MinValue: 0
+
+  RadiusDeskSecuritySalt:
+    Type: String
+    Default: "DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9miAA"
+  RadiusDeskAesKey:
+    Type: String
+    Default: "0123456789ABCDEF0123456789ABCDEF"
+
+  NginxServerName:
+    Type: String
+    Default: "_"
+  NginxEnableSsl:
+    Type: Number
+    Default: 0
+    MaxValue: 1
+    MinValue: 0
+  NginxSslCertFileOnS3:
+    Type: String
+    Default: "fullchain.pem"
+  NginxSslCertKeyFileOnS3:
+    Type: String
+    Default: "privkey.pem"
+  NginxSslDhparamFileOnS3:
+    Type: String
+    Default: "ssl-dhparams.pem"
+  NginxSslInclueConfigFileOnS3:
+    Type: String
+    Default: "options-ssl-nginx.conf"
+
+  FreeRadiusCaCertFileOnS3:
+    Type: String
+    Default: ca.pem
+  FreeRadiusServerCertFileOnS3:
+    Type: String
+    Default: server.pem
+  FreeRadiusClientCertFileOnS3:
+    Type: String
+    Default: client.pem
+  FreeRadiusDhFileOnS3:
+    Type: String
+    Default: dh
+  FreeRadiusServerCn:
+    Type: String
+    Default: radius.example.org
+
+  MobileconfigPlUuid:
+    Type: String
+    Default: 508f7adc-6fde-4daf-98cf-b20c2cbd9978
+  MobileconfigPlidPrefix:
+    Type: String
+    Default: Lifeseed.
+  MobileconfigCaCertName:
+    Type: String
+    Default: "CA cert."
+  MobileconfigDescription:
+    Type: String
+    Default: "Configure Wi-Fi for Lifeseed."
+  MobileconfigPayloadDisplayName:
+    Type: String
+    Default: "Wi-Fi Connection Profile"
+  
+  MobileconfigSignerChainFileOnS3:
+    Type: String
+    Default: signer_chain.pem
+  MobileconfigSignerCertFileOnS3:
+    Type: String
+    Default: signer_cert.pem
+  MobileconfigSignerKeyFileOnS3:
+    Type: String
+    Default: signer_privkey.pem
+
+  WindowsCarrierId:
+    Type: String
+    Default: d11d07b9-54a4-4303-a115-d46dfb11d0cd
+  WindowsSubscriberId:
+    Type: String
+    Default: "1234567890"
+  WindowsAuthorId:
+    Type: String
+    Default: "311"
+  WindowsTrustedRootCaHash:
+    Type: String
+    Default: "5F:3B:8C:F2:F8:10:B3:7D:78:B4:CE:EC:19:19:C3:73:34:B9:C7:74"
+  WindowsSignerCertPfxFileOnS3:
+    Type: String
+    Default: signer_cert.pfx
+  WindowsSignerCertPfxPassword:
+    Type: String
+    Default: "password"
+
+Resources:
+  RadiusDeskWanIf:
+    Type: 'AWS::EC2::NetworkInterface'
+    Properties:
+      SubnetId: !ImportValue
+        'Fn::Sub': "${BaseStack}-PublicSubnet"
+      GroupSet:
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupSSH"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupHTTP"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupHTTPS"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-RadiusDeskWanIf"
+  VpnServerWanIf:
+    Type: 'AWS::EC2::NetworkInterface'
+    Properties:
+      SubnetId: !ImportValue
+        'Fn::Sub': "${BaseStack}-PublicSubnet"
+      GroupSet:
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupSSH"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupHTTP"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupL2TP"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupWireGuard"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-VpnServerWanIf"
+  RadiusDeskWanEipAssociation:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      AllocationId: !Ref RadiusDeskWanEipAllocationId
+      NetworkInterfaceId: !Ref RadiusDeskWanIf
+  VpnServerWanEipAssociation:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      AllocationId: !Ref VpnServerWanEipAllocationId
+      NetworkInterfaceId: !Ref VpnServerWanIf
+  RadiusDeskInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: !Ref VpcAvailabilityZone
+      ImageId: !Ref RadiusDeskInstanceImageId
+      InstanceType: !Ref RadiusDeskInstanceType
+      KeyName: !Ref RadiusDeskInstanceKeyName
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          NetworkInterfaceId: !Ref RadiusDeskWanIf
+        - DeviceIndex: 1
+          SubnetId: !ImportValue
+            'Fn::Sub': "${BaseStack}-VpnSubnet"
+          GroupSet:
+            - !ImportValue
+                'Fn::Sub': "${BaseStack}-SecurityGroupVpnSubnet"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-RadiusDeskInstance"
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash -xe
+            apt-get update
+            apt-get -y install python3-pip
+            pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz
+            cp -a /usr/local/init/ubuntu/cfn-hup /etc/init.d/cfn-hup
+            chmod +x /etc/init.d/cfn-hup
+            update-rc.d cfn-hup defaults
+
+            # Update python-daemon to the latest version.
+            set +e
+            pip uninstall python-daemon
+            pip install 'python-daemon>=2.2,<3'
+            set -e
+
+            /usr/local/bin/cfn-init -v --stack ${AWS::StackName} --resource ${Instance} --configsets setup --region ${AWS::Region}
+            /usr/local/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource ${Instance} --region ${AWS::Region}
+          - Instance: RadiusDeskInstance
+    Metadata:
+      'AWS::CloudFormation::Init':
+        configSets:
+          setup:
+            - initialize
+            - install-base
+            - get-s3-data
+            - add-user
+            - install-freeradius
+            - create-rc-local
+            - install-s3-data
+            - restart-services
+            - setup-services0
+            - setup-services1
+            - install-freeradius-scripts
+        initialize:
+          files:
+            '/etc/cfn/cfn-hup.conf':
+              content: !Sub
+                - |
+                  [main]
+                  stack=${AWS::StackId}
+                  region=${AWS::Region}
+                  interval=5
+                  verbose=true
+                - {}
+              mode: '000400'
+              owner: root
+              group: root
+            '/etc/cfn/hooks.d/cfn-auto-reloader.conf':
+              content: !Sub
+                - |
+                  [cfn-auto-reloader-hook]
+                  triggers=post.update
+                  path=Resources.${Instance}.Metadata.AWS::CloudFormation::Init
+                  action=/usr/local/bin/cfn-init -v --stack ${AWS::StackName} --resource ${Instance} --configsets setup --region ${AWS::Region}
+                - Instance: RadiusDeskInstance
+              mode: '000400'
+              owner: root
+              group: root
+          services:
+            sysvinit:
+              cfn-hup:
+                enabled: true
+                ensureRunning: true
+                files:
+                  - '/etc/cfn/cfn-hup.conf'
+                  - '/etc/cfn/hooks.d/cfn-auto-reloader.conf'
+        install-base:
+          packages:
+            apt:
+              language-pack-en-base: []
+              nginx: []
+              php-fpm: []
+              php-mysql: []
+              php-cli: []
+              php-gd: []
+              php-curl: []
+              php-xml: []
+              php-mbstring: []
+              php-intl: []
+              git: []
+              wget: []
+              mariadb-server: []
+              awscli: []
+              ssl-cert: []
+              libdatetime-perl: []
+              libpython2.7: []
+              libtalloc2: []
+              libwbclient0: []
+              jq: []
+              xmlsec1: []
+                : []
+              s3fs: []
+          files:
+            '/home/ubuntu/.aws/config':
+              content: !Sub
+                - |
+                  [default]
+                  region = ${AWS::Region}
+                - {}
+              mode: '000600'
+              owner: ubuntu
+              group: ubuntu
+            '/home/ubuntu/.aws/credentials':
+              content: !Sub
+                - |
+                  [default]
+                  aws_access_key_id = ${AwsAccessKeyId}
+                  aws_secret_access_key = ${AwsSecretAccessKey}
+                - {}
+              mode: '000600'
+              owner: ubuntu
+              group: ubuntu
+            '/etc/passwd-s3fs':
+              content: !Sub
+                - |
+                  ${AwsAccessKeyId}:${AwsSecretAccessKey}
+                - {}
+              mode: '000640'
+              owner: root
+              group: root
+            '/home/ubuntu/.lsconfig':
+              content: !Sub
+                - |
+                  {"vxlan_ip_address":{"local":"${IpAddr}","prefixlen":${IpPrefix}},"vxlan_id":${VxlanId},"vxlan_skip_set_ipaddr":${SkipSetIpaddr},"s3_bucket_name":"${S3BucketName}","s3_mount_point":"${S3MountPoint}"}
+                - IpAddr: !Ref RadiusDeskVxlanIpAddr
+                  IpPrefix: !Ref RadiusDeskVxlanIpPrefix
+                  VxlanId: !Ref VxlanId
+                  SkipSetIpaddr: 0
+                  S3BucketName: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3ShareBucketName"
+                  S3MountPoint: !Ref S3ShareMountPoint
+              mode: '000600'
+              owner: ubuntu
+              group: ubuntu
+            '/home/ubuntu/.radiusdesk_config':
+              content: !Sub
+                - |
+                  {"security_salt":"${SecuritySalt}","aes_key":"${AesKey}","freeradius":{"ca_cert":"${RadiusCaCert}","server_cert":"${RadiusServerCert}","client_cert":"${RadiusClientCert}","dh":"${RadiusDh}","server_cn":"${RadiusServerCn}"},"mobileconfig":{"pl_uuid":"${McPlUuid}","plid_prefix":"${McPlidPrefix}","ca_cert_name":"${McCaCertName}","description":"${McDescription}","payload_display_name":"${McPayloadDisplayName}","signer_chain":"${McSignerChain}","signer_cert":"${McSignerCert}","signer_key":"${McSignerKey}"},"windows":{"carrier_id":"${WinCarrierId}","subscriber_id":"${WinSubscriberId}","author_id":"${WinAuthorId}","trusted_root_ca_hash":"${WinTrustedRootCaHash}","signer_cert_pfx":"${WinSignerCertPfx}","signer_cert_pfx_password":"${WinSignerCertPfxPassword}"},"nginx":{"server_name":"${NgServerName}","enable_ssl":${NgEnableSsl},"ssl_cert":"${NgSslCert}","ssl_cert_key":"${NgSslCertKey}","ssl_dhparam":"${NgSslDhparam}","ssl_include":"${NgSslInclude}"},"se_admin_password":"${SeAdminPassword}"}
+                - SecuritySalt: !Ref RadiusDeskSecuritySalt
+                  AesKey: !Ref RadiusDeskAesKey
+                  NgServerName: !Ref NginxServerName
+                  NgEnableSsl: !Ref NginxEnableSsl
+                  NgSslCert: !Ref NginxSslCertFileOnS3
+                  NgSslCertKey: !Ref NginxSslCertKeyFileOnS3
+                  NgSslDhparam: !Ref NginxSslDhparamFileOnS3
+                  NgSslInclude: !Ref NginxSslInclueConfigFileOnS3
+                  RadiusCaCert: !Ref FreeRadiusCaCertFileOnS3
+                  RadiusServerCert: !Ref FreeRadiusServerCertFileOnS3
+                  RadiusClientCert: !Ref FreeRadiusClientCertFileOnS3
+                  RadiusDh: !Ref FreeRadiusDhFileOnS3
+                  RadiusServerCn: !Ref FreeRadiusServerCn
+                  McPlUuid: !Ref MobileconfigPlUuid
+                  McPlidPrefix: !Ref MobileconfigPlidPrefix
+                  McCaCertName: !Ref MobileconfigCaCertName
+                  McDescription: !Ref MobileconfigDescription
+                  McPayloadDisplayName: !Ref MobileconfigPayloadDisplayName
+                  McSignerChain: !Ref MobileconfigSignerChainFileOnS3
+                  McSignerCert: !Ref MobileconfigSignerCertFileOnS3
+                  McSignerKey: !Ref MobileconfigSignerKeyFileOnS3
+                  WinCarrierId: !Ref WindowsCarrierId
+                  WinSubscriberId: !Ref WindowsSubscriberId
+                  WinAuthorId: !Ref WindowsAuthorId
+                  WinTrustedRootCaHash: !Ref WindowsTrustedRootCaHash
+                  WinSignerCertPfx: !Ref WindowsSignerCertPfxFileOnS3
+                  WinSignerCertPfxPassword: !Ref WindowsSignerCertPfxPassword
+                  SeAdminPassword: !Ref VpnServerPassword
+              mode: '000600'
+              owner: ubuntu
+              group: ubuntu
+            '/home/ubuntu/.vimrc':
+              content: !Sub
+                - |
+                  colorscheme elflord
+                  set tabstop=4
+                  set shiftwidth=4
+                - {}
+              mode: '000644'
+              owner: ubuntu
+              group: ubuntu
+        get-s3-data:
+          commands:
+            01_create_src_directory:
+              command: "mkdir -p /home/ubuntu/src"
+            02_create_src_rdcore_composer_directory:
+              command: "mkdir -p /home/ubuntu/src/rdcore/composer"
+            02_create_src_rdcore_templates_directory:
+              command: "mkdir -p /home/ubuntu/src/rdcore/templates"
+            02_create_src_rdcore_certs_directory:
+              command: "mkdir -p /home/ubuntu/src/rdcore/certs"
+            02_create_src_freeradius_directory:
+              command: "mkdir -p /home/ubuntu/src/freeradius"
+            02_create_src_nginx_directory:
+              command: "mkdir -p /home/ubuntu/src/nginx"
+            02_create_src_ssh_directory:
+              command: "mkdir -p /home/ubuntu/src/ssh"
+            02_create_src_scripts_directory:
+              command: "mkdir -p /home/ubuntu/src/scripts"
+            03_chown_src_directory:
+              command: "chown -R ubuntu. /home/ubuntu/src"
+            04_get_rdcore_source:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/rdcore/src/${RdcoreTarBz2Name} /home/ubuntu/src/rdcore/"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            05_get_rdcore_scripts:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/rdcore/scripts/ /home/ubuntu/src/scripts/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            05_get_rdcore_certs:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/rdcore/certs/ /home/ubuntu/src/rdcore/certs/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            05_get_rdcore_composer_package:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/rdcore/composer/ /home/ubuntu/src/rdcore/composer/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            05_get_rdcore_templates:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/rdcore/templates/ /home/ubuntu/src/rdcore/templates/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            06_get_freeradius_files:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/freeradius/ /home/ubuntu/src/freeradius/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            06_get_nginx_files:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/nginx/ /home/ubuntu/src/nginx/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            07_move_freeradius_scripts:
+              command: "mv /home/ubuntu/src/freeradius/scripts/* /home/ubuntu/src/scripts/"
+            08_get_config_patch:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp --exclude '*' --include '*.patch' s3://${Arn}/patch/ /home/ubuntu/src/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            09_get_ssh_user_script:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/ssh/ /home/ubuntu/src/ssh/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            10_chmod_ssh_user_script:
+              command: "chmod +x /home/ubuntu/src/ssh/add_user.sh"
+            11_get_common_scripts:
+              command: !Sub
+                - "sudo -u ubuntu aws s3 cp s3://${Arn}/scripts/ /home/ubuntu/src/scripts/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            12_chmod_scripts:
+              command: "chmod +x /home/ubuntu/src/scripts/*"
+        install-freeradius:
+          commands:
+            01_install_packages:
+              command: "dpkg -i /home/ubuntu/src/freeradius/packages/*.deb"
+          l:
+          files:
+            '/etc/rc.local':
+              content: !Sub
+                - |
+                  #!/bin/sh
+                  /home/ubuntu/src/scripts/enable_swap.sh
+                  /home/ubuntu/src/scripts/mount_s3fs.sh
+                  sudo -u ubuntu /home/ubuntu/src/scripts/setup_vxlan.sh
+                  exit 0
+                - {}
+              mode: '000755'
+              owner: root
+              group: root
+        install-s3-data:
+          commands:
+            01_enable_swap:
+              command: "/home/ubuntu/src/scripts/enable_swap.sh"
+            02_mount_s3fs:
+              command: "/home/ubuntu/src/scripts/mount_s3fs.sh"
+            03_setup_vxlan:
+              command: "sudo -u ubuntu /home/ubuntu/src/scripts/setup_vxlan.sh"
+            04_install_vxlan_cron:
+              command: "/home/ubuntu/src/scripts/install_vxlan_cron.sh"
+            04_install_sync_hmac_key_cron:
+              command: "/home/ubuntu/src/scripts/install_sync_hmac_key_cron.sh"
+            05_execute_installer:
+              command: !Sub
+                - "/home/ubuntu/src/scripts/rdcore_installer.sh '${RdcoreTarBz2Name}' '${FreeRadiusConfTarBz2Name}' '${ComposerUpdateTarBz2Name}' '${RdsSubnetIfname}' '${RdsAddress}' '${RdsPort}' '${RdsDbName}' '${RdsMasterUsername}' '${RdsMasterUserPassword}' '${RdsUsername}' '${RdsUserPassword}'"
+                - RdsAddress: !ImportValue
+                    'Fn::Sub': "${RdsStack}-RdsAddress"
+                  RdsPort: !ImportValue
+                    'Fn::Sub': "${RdsStack}-RdsPort"
+        restart-services:
+          commands:
+            01_daemon-reload:
+              command: "systemctl daemon-reload"
+            02_mariadb:
+              command: "systemctl restart mariadb"
+            03_freeradius:
+              command: "systemctl restart freeradius"
+            04_php-fpm:
+              command: "systemctl restart php7.4-fpm"
+            05_nginx:
+              command: "systemctl restart nginx"
+        setup-services0:
+          commands:
+            01_mariadb:
+              command: "update-rc.d mysql defaults"
+            02_freeradius:
+              command: "update-rc.d freeradius defaults"
+            03_php7.4-fpm:
+              command: "update-rc.d php7.4-fpm defaults"
+            04_nginx:
+              command: "update-rc.d nginx defaults"
+        setup-services1:
+          services:
+            sysvinit:
+              mysql:
+                enabled: true
+                ensureRunning: true
+              freeradius:
+                enabled: true
+                ensureRunning: true
+              php7.4-fpm:
+                enabled: true
+                ensureRunning: true
+              nginx:
+                enabled: true
+                ensureRunning: true
+        add-user:
+          commands:
+            01_execute_installer:
+              command: !Sub
+                - "/home/ubuntu/src/ssh/add_user.sh"
+                - {}
+        install-freeradius-scripts:
+          commands:
+            01_install_scripts:
+              command: "/home/ubuntu/src/scripts/install_freeradius_scripts.sh"
+
+
+  VpnServerInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: !Ref VpcAvailabilityZone
+      ImageId: !Ref VpnServerInstanceImageId
+      InstanceType: !Ref VpnServerInstanceType
+      KeyName: !Ref VpnServerInstanceKeyName
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          NetworkInterfaceId: !Ref VpnServerWanIf
+        - DeviceIndex: 1
+          SubnetId: !ImportValue
+            'Fn::Sub': "${BaseStack}-VpnSubnet"
+          GroupSet:
+            - !ImportValue
+                'Fn::Sub': "${BaseStack}-SecurityGroupVpnSubnet"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-VpnServerInstance"
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash -xe
+            dnf install -y python3
+            dnf install -y wget
+            mkdir -p /opt/aws/bin
+            wget https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz
+            python3 -m easy_install --script-dir /opt/aws/bin aws-cfn-bootstrap-py3-latest.tar.gz
+            /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource ${Instance} --configsets full_install --region ${AWS::Region}
+            /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource ${Instance} --region ${AWS::Region}
+          - Instance: VpnServerInstance
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          full_install:
+            - install_and_enable_cfn_hup
+            - install-base
+            - get-s3-data
+            - add-user
+            - create-rc-local
+            - install-s3-data
+            - restart-services
+            - setup-services
+        install_and_enable_cfn_hup:
+          files:
+            "/etc/cfn/cfn-hup.conf":
+              content: !Sub
+                - |
+                  [main]
+                  stack=${AWS::StackId}
+                  region=${AWS::Region}
+                - {}
+              mode: '000400'
+              owner: root 
+              group: root
+            "/etc/cfn/hooks.d/cfn-auto-reloader.conf":
+              content: !Sub
+                - |
+                  [cfn-auto-reloader-hook]
+                  triggers=post.update
+                  path=Resources.${Instance}.Metadata.AWS::CloudFormation::Init
+                  action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource ${Instance} --configsets full_install --region ${AWS::Region}
+                  runas=root
+                - Instance: VpnServerInstance
+            "/lib/systemd/system/cfn-hup.service":
+              content: !Sub
+                - |
+                  [Unit]
+                  Description=cfn-hup daemon
+
+                  [Service]
+                  Type=simple
+                  ExecStart=/opt/aws/bin/cfn-hup
+                  Restart=always
+
+                  [Install]
+                  WantedBy=multi-user.target
+                - {}
+          commands:
+            01daemon_reload:
+              command: systemctl daemon-reload
+            02enable_cfn_hup:
+              command: systemctl enable cfn-hup.service
+            03start_cfn_hup:
+              command: systemctl start cfn-hup.service
+        install-base:
+          packages:
+            rpm:
+              epel: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm'
+            yum:
+              make: []
+              gcc: []
+            　gcc-c++: [] 
+              cmake: []
+              ncurses-devel: []
+              openssl-devel: []
+              libsodium-devel: []
+              readline-devel: []
+              zlib-devel: []
+              git: []
+              awscli: []
+              jq: []
+              bzip2: []
+          files:
+             "/home/ec2-user/.aws/config"
+              content: !Sub
+                - |
+                  [default]
+                  region = ${AWS::Region}
+                - {}
+              mode: '000600'
+              owner: ec2-user
+              group: ec2-user
+            '/home/ec2-user/.aws/credentials':
+              content: !Sub
+                - |
+                  [default]
+                  aws_access_key_id = ${AwsAccessKeyId}
+                  aws_secret_access_key = ${AwsSecretAccessKey}
+                - {}
+              mode: '000600'
+              owner: ec2-user
+              group: ec2-user
+            '/home/ec2-user/.lsconfig':
+              content: !Sub
+                - |
+                  {"vxlan_ip_address":{"local":"${IpAddr}","prefixlen":${IpPrefix}},"vxlan_id":${VxlanId},"vxlan_skip_set_ipaddr":${SkipSetIpaddr}}
+                - IpAddr: !Ref VpnServerVxlanIpAddr
+                  IpPrefix: !Ref VpnServerVxlanIpPrefix
+                  VxlanId: !Ref VxlanId
+                  SkipSetIpaddr: 1
+              mode: '000600'
+              owner: ec2-user
+              group: ec2-user
+        add-user:
+          commands:
+            01_execute_installer:
+              command: !Sub
+                - "/home/ec2-user/src/ssh/add_user.sh"
+                - {}
+        get-s3-data:
+          commands:
+            01_create_src_directory:
+              command: "mkdir -p /home/ec2-user/src"
+            02_create_src_ssh_directory:
+              command: "mkdir -p /home/ec2-user/src/ssh"
+            02_create_src_scripts_directory:
+              command: "mkdir -p /home/ec2-user/src/scripts"
+            03_chown_src_directory:
+              command: "chown -R ec2-user. /home/ec2-user/src"
+            04_get_softether_source:
+              command: !Sub
+                - "sudo -u ec2-user aws s3 cp s3://${Arn}/softether/src/${SoftEtherTarBz2Name} /home/ec2-user/src/"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            05_get_softether_installer:
+              command: !Sub
+                - "sudo -u ec2-user aws s3 cp s3://${Arn}/softether/scripts/softether_installer.sh /home/ec2-user/src/"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            06_chmod_softether_installer:
+              command: "chmod +x /home/ec2-user/src/softether_installer.sh"
+            07_get_ssh_user_script:
+              command: !Sub
+                - "sudo -u ec2-user aws s3 cp s3://${Arn}/ssh/ /home/ec2-user/src/ssh/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            08_chmod_ssh_user_script:
+              command: "chmod +x /home/ec2-user/src/ssh/add_user.sh"
+            09_get_scripts:
+              command: !Sub
+                - "sudo -u ec2-user aws s3 cp s3://${Arn}/scripts/ /home/ec2-user/src/scripts/ --recursive"
+                - Arn: !ImportValue
+                    'Fn::Sub': "${BaseStack}-LsCloudS3DeployAccessPointArn"
+            10_chmod_scripts:
+              command: "chmod +x /home/ec2-user/src/scripts/*"
+        create-rc-local:
+          files:
+            '/etc/rc.d/rc.local':
+              content: !Sub
+                - |
+                  #!/bin/bash
+                  touch /var/lock/subsys/local
+                  bash /home/ec2-user/src/scripts/enable_swap.sh
+                  bash /home/ec2-user/src/scripts/setup_vxlan.sh
+                  exit 0
+                - {}
+              mode: '000755'
+              owner: root
+              group: root
+        install-s3-data:
+          commands:
+            01_enable_swap:
+              command: "/home/ec2-user/src/scripts/enable_swap.sh"
+            02_setup_vxlan:
+              command: "sudo -u ec2-user /home/ec2-user/src/scripts/setup_vxlan.sh"
+            03_install_vxlan_cron:
+              command: "/home/ec2-user/src/scripts/install_vxlan_cron.sh"
+            04_execute_installer:
+              command: !Sub
+                - "/home/ec2-user/src/softether_installer.sh '${VpnServerSoftEtherTag}' '${SoftEtherTarBz2Name}'"
+                - {}
+        restart-services:
+          files:
+            ' /etc/systemd/system/softether-vpnserver.service':
+              content: !Sub
+                - |
+                  [Unit]
+                  Description=Softether VPN Server Service
+                  After=network.target
+
+                  [Service]
+                  Type=forking
+                  User=root
+                  ExecStart=/usr/local/bin/vpnserver start
+                  ExecStop=/usr/local/bin/vpnserver stop
+                  Restart=on-abort
+                  WorkingDirectory=/usr/local/libexec/softether/vpnserver/
+                  ExecStartPre=/sbin/ip link set dev eth1 promisc on
+
+                  [Install]
+                  WantedBy=multi-user.target
+                - {}
+              mode: '000644'
+              owner: root
+              group: root
+          commands:
+            01_daemon-reload:
+              command: "systemctl daemon-reload"
+            02_softether-vpnserver:
+              command: "systemctl restart softether-vpnserver.service"
+            03_sleep_3sec:
+              command: "sleep 3"
+            04_set_softether-vpnserver_password:
+              command: !Sub
+                - "/usr/local/bin/vpncmd 127.0.0.1:443 /SERVER /CMD ServerPasswordSet ${VpnServerPassword}"
+                - {}
+              test: "test ! -e  softether-vpnserver.service"
+        setup-services:
+          commands:
+            01_softether-vpnserver:
+              command: "systemctl enable softether-vpnserver.service"
+
+Outputs:
+  RadiusDeskPublicIpAddress:
+    Description: The Pubic IP Address of RADIUSDesk server
+    Value: !GetAtt RadiusDeskInstance.PublicIp
+    Export:
+      Name: !Sub "${AWS::StackName}-RadiusDeskInstance-PublicIp"
+  VpnServerPublicIpAddress:
+    Description: The Pubic IP Address of VPN server
+    Value: !GetAtt VpnServerInstance.PublicIp
+    Export:
+      Name: !Sub "${AWS::StackName}-VpnServerInstance-PublicIp"

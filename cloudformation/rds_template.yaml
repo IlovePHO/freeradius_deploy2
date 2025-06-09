@@ -1,0 +1,120 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  BaseStack:
+    Type: String
+    Default: vpc-test
+  VpcAvailabilityZone:
+    Type: String
+    Default: ap-northeast-1a
+  VpcAvailabilityZone2:
+    Type: String
+    Default: ap-northeast-1c
+  RdsInstanceClass:
+    Type: String
+    Default: db.t3.micro
+  RdsEngine:
+    Type: String
+    Default: mariadb
+  RdsEngineVersion:
+    Type: String
+    Default: 10.6.10
+  RdsMasterUsername:
+    Type: String
+    Default: admin
+  RdsMasterUserPassword:
+    Type: String
+    Default: ""
+  RdsDBName:
+    Type: String
+    Default: rd
+  RdsMultiAZ:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+    Default: false
+  RdsStorageType:
+    Type: String
+    Default: gp2
+  RdsAllocatedStorage:
+    Type: Number
+    Default: 20
+    MaxValue: 6144
+    MinValue: 20
+  RdsStoregeEncrypted:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+    Default: true
+
+Conditions:
+  UseMultiAZ: !Equals [true, !Ref RdsMultiAZ]
+
+Resources:
+  RdsSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: !Sub "DbSubnet for ${AWS::StackName}"
+      DBSubnetGroupName: !Sub "${AWS::StackName}-dbsubnet"
+      SubnetIds:
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-VpnSubnet"
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-VpnSubnet2"
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-dbsubnet"
+
+  RdsParamGroup:
+    Type: "AWS::RDS::DBParameterGroup"
+    Properties:
+      Description: "RDS parameter group for mariadb10.6"
+      Family: mariadb10.6
+      Parameters:
+        sql_mode: IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
+  RdsInstance:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBInstanceIdentifier: !Sub "${AWS::StackName}-rds"
+      DBInstanceClass: !Ref RdsInstanceClass
+      Engine: !Ref RdsEngine
+      EngineVersion: !Ref RdsEngineVersion
+      MasterUsername: !Ref RdsMasterUsername
+      MasterUserPassword: !Ref RdsMasterUserPassword
+      DBName: !Ref RdsDBName
+      BackupRetentionPeriod: 0
+      MultiAZ: !Ref RdsMultiAZ
+      AvailabilityZone: !If
+        - UseMultiAZ
+        - !Ref AWS::NoValue
+        - !Ref VpcAvailabilityZone
+      PubliclyAccessible: false
+      StorageType: !Ref RdsStorageType
+      AllocatedStorage: !Ref RdsAllocatedStorage
+      StorageEncrypted: !Ref RdsStoregeEncrypted
+      CopyTagsToSnapshot: false
+      DeletionProtection: false
+      DeleteAutomatedBackups: true
+      DBSubnetGroupName: !Ref RdsSubnetGroup
+      DBParameterGroupName: !Ref RdsParamGroup
+      VPCSecurityGroups:
+        - !ImportValue
+            'Fn::Sub': "${BaseStack}-SecurityGroupRdsSubnetGroup"
+      Tags:
+        -
+          Key: Name
+          Value: !Sub "${AWS::StackName}-rds"
+
+Outputs:
+  RdsAddress:
+    Description: The Address of Rds
+    Value: !GetAtt RdsInstance.Endpoint.Address
+    Export:
+      Name: !Sub "${AWS::StackName}-RdsAddress"
+  RdsPort:
+    Description: The Port of Rds
+    Value: !GetAtt RdsInstance.Endpoint.Port
+    Export:
+      Name: !Sub "${AWS::StackName}-RdsPort"
